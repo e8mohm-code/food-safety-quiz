@@ -5,564 +5,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>برنامج التثقيف الصحي للعاملين في منشآت الغذاء</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-            min-height: 100vh;
-            padding: 20px;
-            color: #333;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            animation: slideDown 0.5s ease-out;
-        }
-
-        .header h1 {
-            color: #0d7377;
-            font-size: 28px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .header p {
-            color: #0a5c5f;
-            font-size: 14px;
-        }
-
-        /* Registration Form Styles */
-        .registration-form {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(13, 115, 119, 0.15);
-            margin-bottom: 30px;
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #0d7377;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #c8e6c9;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #0d7377;
-            box-shadow: 0 0 0 3px rgba(13, 115, 119, 0.1);
-        }
-
-        .form-group input::placeholder {
-            color: #999;
-        }
-
-        .btn {
-            padding: 12px 32px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #0d7377 0%, #0a5c5f 100%);
-            color: white;
-            width: 100%;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(13, 115, 119, 0.3);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-
-        /* Quiz Section Styles */
-        .quiz-section {
-            display: none;
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        .quiz-section.active {
-            display: block;
-        }
-
-        .progress-container {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .progress-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #0d7377 0%, #05a3a6 100%);
-            transition: width 0.3s ease;
-            border-radius: 4px;
-        }
-
-        .timer {
-            display: inline-block;
-            background: #fff3e0;
-            color: #e65100;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .question-card {
-            background: white;
-            border-radius: 12px;
-            padding: 32px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 32px rgba(13, 115, 119, 0.15);
-        }
-
-        .question-number {
-            color: #0d7377;
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .question-text {
-            color: #333;
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 24px;
-            line-height: 1.6;
-        }
-
-        .choices {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .choice {
-            padding: 16px;
-            border: 2px solid #c8e6c9;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: #f5f5f5;
-            font-size: 15px;
-            position: relative;
-        }
-
-        .choice input[type="radio"] {
-            margin-left: 12px;
-            cursor: pointer;
-        }
-
-        .choice:hover {
-            background: #e8f5e9;
-            border-color: #0d7377;
-        }
-
-        .choice input[type="radio"]:checked + label {
-            color: #0d7377;
-            font-weight: 600;
-        }
-
-        .choice.selected {
-            background: #c8e6c9;
-            border-color: #0d7377;
-        }
-
-        .choice label {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 0;
-        }
-
-        .choice input[type="radio"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: #0d7377;
-        }
-
-        .btn-navigation {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 24px;
-        }
-
-        .btn-nav {
-            padding: 12px 24px;
-            background: white;
-            border: 2px solid #0d7377;
-            color: #0d7377;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            flex: 1;
-            max-width: 150px;
-        }
-
-        .btn-nav:hover:not(:disabled) {
-            background: #0d7377;
-            color: white;
-        }
-
-        .btn-nav:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .btn-submit {
-            width: 100%;
-            background: linear-gradient(135deg, #0d7377 0%, #0a5c5f 100%);
-            color: white;
-            border: none;
-            padding: 14px;
-            font-weight: 600;
-            margin-top: 24px;
-        }
-
-        /* Results Section */
-        .results-section {
-            display: none;
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        .results-section.active {
-            display: block;
-        }
-
-        .results-card {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(13, 115, 119, 0.15);
-            margin-bottom: 30px;
-        }
-
-        .score-display {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .score-circle {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 20px;
-            background: conic-gradient(#0d7377 0deg, #0d7377 var(--rotation), #e0e0e0 var(--rotation), #e0e0e0 360deg);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 24px rgba(13, 115, 119, 0.2);
-        }
-
-        .score-value {
-            text-align: center;
-            font-size: 48px;
-            font-weight: 700;
-            color: #0d7377;
-        }
-
-        .score-value small {
-            display: block;
-            font-size: 14px;
-            color: #666;
-            margin-top: 4px;
-        }
-
-        .score-message {
-            font-size: 20px;
-            color: #333;
-            font-weight: 600;
-            margin: 20px 0;
-        }
-
-        .score-percentage {
-            font-size: 16px;
-            color: #666;
-        }
-
-        .wrong-answers {
-            margin-top: 40px;
-        }
-
-        .wrong-answers h3 {
-            color: #0d7377;
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
-
-        .wrong-answer-item {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 16px;
-            margin-bottom: 16px;
-            border-radius: 4px;
-        }
-
-        .wrong-answer-item.no-wrong {
-            background: #d4edda;
-            border-left-color: #28a745;
-            text-align: center;
-            color: #155724;
-        }
-
-        .question-num {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .your-answer {
-            color: #856404;
-            font-size: 14px;
-            margin: 8px 0;
-        }
-
-        .correct-answer {
-            color: #155724;
-            background: #d4edda;
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 14px;
-            margin: 8px 0;
-        }
-
-        .btn-reset {
-            background: linear-gradient(135deg, #0d7377 0%, #0a5c5f 100%);
-            color: white;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .btn-send-results {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            width: 100%;
-            margin-top: 12px;
-        }
-
-        .btn-send-results:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(40, 167, 69, 0.3);
-        }
-
-        /* Animations */
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 22px;
-            }
-
-            .registration-form,
-            .question-card,
-            .results-card {
-                padding: 24px;
-            }
-
-            .question-text {
-                font-size: 16px;
-            }
-
-            .score-circle {
-                width: 150px;
-                height: 150px;
-            }
-
-            .score-value {
-                font-size: 36px;
-            }
-
-            .progress-info {
-                flex-direction: column;
-                gap: 8px;
-                align-items: flex-start;
-            }
-
-            .btn-navigation {
-                flex-wrap: wrap;
-            }
-
-            .btn-nav {
-                min-width: 120px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 12px;
-            }
-
-            .header h1 {
-                font-size: 20px;
-            }
-
-            .header p {
-                font-size: 12px;
-            }
-
-            .registration-form,
-            .question-card,
-            .results-card {
-                padding: 16px;
-            }
-
-            .form-group {
-                margin-bottom: 16px;
-            }
-
-            .question-text {
-                font-size: 15px;
-            }
-
-            .choice {
-                padding: 12px;
-                font-size: 14px;
-            }
-
-            .score-circle {
-                width: 120px;
-                height: 120px;
-            }
-
-            .score-value {
-                font-size: 28px;
-            }
-
-            .score-message {
-                font-size: 18px;
-            }
-        }
-
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 16px;
-            border: 1px solid #f5c6cb;
-        }
-
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 16px;
-            border: 1px solid #c3e6cb;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); min-height: 100vh; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .lang-selector { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .lang-btn { padding: 10px 24px; border: 2px solid #0d7377; border-radius: 25px; background: white; color: #0d7377; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+        .lang-btn:hover, .lang-btn.active { background: #0d7377; color: white; }
+        .header { text-align: center; margin-bottom: 30px; animation: slideDown 0.5s ease-out; }
+        .header h1 { color: #0d7377; font-size: 28px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+        .header p { color: #0a5c5f; font-size: 14px; }
+        .registration-form { background: white; border-radius: 12px; padding: 40px; box-shadow: 0 8px 32px rgba(13, 115, 119, 0.15); margin-bottom: 30px; animation: fadeIn 0.6s ease-out; }
+        .form-group { margin-bottom: 24px; }
+        .form-group label { display: block; margin-bottom: 8px; color: #0d7377; font-weight: 600; font-size: 16px; }
+        .form-group input { width: 100%; padding: 12px 16px; border: 2px solid #c8e6c9; border-radius: 8px; font-size: 15px; transition: all 0.3s ease; font-family: inherit; }
+        .form-group input:focus { outline: none; border-color: #0d7377; box-shadow: 0 0 0 3px rgba(13, 115, 119, 0.1); }
+        .form-group input::placeholder { color: #999; }
+        .btn { padding: 12px 32px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-align: center; display: inline-block; }
+        .btn-primary { background: linear-gradient(135deg, #0d7377 0%, #0a5c5f 100%); color: white; width: 100%; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(13, 115, 119, 0.3); }
+        .quiz-section { display: none; animation: fadeIn 0.6s ease-out; }
+        .quiz-section.active { display: block; }
+        .progress-container { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .progress-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 14px; color: #666; }
+        .progress-bar { width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #0d7377 0%, #05a3a6 100%); transition: width 0.3s ease; border-radius: 4px; }
+        .timer { display: inline-block; background: #fff3e0; color: #e65100; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 14px; }
+        .question-card { background: white; border-radius: 12px; padding: 32px; margin-bottom: 20px; box-shadow: 0 8px 32px rgba(13, 115, 119, 0.15); }
+        .question-number { color: #0d7377; font-weight: 600; font-size: 14px; margin-bottom: 8px; }
+        .question-text { color: #333; font-size: 18px; font-weight: 600; margin-bottom: 24px; line-height: 1.6; }
+        .choices { display: flex; flex-direction: column; gap: 12px; }
+        .choice { padding: 16px; border: 2px solid #c8e6c9; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; background: #f5f5f5; font-size: 15px; }
+        .choice:hover { background: #e8f5e9; border-color: #0d7377; }
+        .choice.selected { background: #c8e6c9; border-color: #0d7377; }
+        .choice label { cursor: pointer; display: flex; align-items: center; gap: 12px; margin: 0; }
+        .choice input[type="radio"] { width: 20px; height: 20px; cursor: pointer; accent-color: #0d7377; }
+        .btn-navigation { display: flex; gap: 12px; justify-content: center; margin-top: 24px; }
+        .btn-nav { padding: 12px 24px; background: white; border: 2px solid #0d7377; color: #0d7377; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; flex: 1; max-width: 150px; }
+        .btn-nav:hover:not(:disabled) { background: #0d7377; color: white; }
+        .btn-nav:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-submit { width: 100%; background: linear-gradient(135deg, #0d7377 0%, #0a5c5f 100%); color: white; border: none; padding: 14px; font-weight: 600; margin-top: 24px; }
+        .results-section { display: none; animation: fadeIn 0.6s ease-out; }
+        .results-section.active { display: block; }
+        .results-card { background: white; border-radius: 12px; padding: 40px; box-shadow: 0 8px 32px rgba(13, 115, 119, 0.15); margin-bottom: 30px; }
+        .score-display { text-align: center; margin-bottom: 40px; }
+        .score-circle { width: 200px; height: 200px; margin: 0 auto 20px; background: conic-gradient(#0d7377 0deg, #0d7377 var(--rotation), #e0e0e0 var(--rotation), #e0e0e0 360deg); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(13, 115, 119, 0.2); }
+        .score-value { text-align: center; font-size: 48px; font-weight: 700; color: #0d7377; }
+        .score-value small { display: block; font-size: 14px; color: #666; margin-top: 4px; }
+        .score-message { font-size: 20px; color: #333; font-weight: 600; margin: 20px 0; }
+        .score-percentage { font-size: 16px; color: #666; }
+        .wrong-answers { margin-top: 40px; }
+        .wrong-answers h3 { color: #0d7377; margin-bottom: 20px; font-size: 20px; }
+        .wrong-answer-item { background: #fff3cd; border-left: 4px solid #ffc107; padding: 16px; margin-bottom: 16px; border-radius: 4px; }
+        .wrong-answer-item.no-wrong { background: #d4edda; border-left-color: #28a745; text-align: center; color: #155724; }
+        .question-num { font-weight: 600; color: #333; margin-bottom: 8px; }
+        .your-answer { color: #856404; font-size: 14px; margin: 8px 0; }
+        .correct-answer { color: #155724; background: #d4edda; padding: 8px 12px; border-radius: 4px; font-weight: 600; font-size: 14px; margin: 8px 0; }
+        .btn-reset { background: linear-gradient(135deg, #0d7377 0%, #0a5c5f 100%); color: white; width: 100%; margin-top: 20px; }
+        .btn-send-results { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; width: 100%; margin-top: 12px; }
+        .btn-send-results:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(40, 167, 69, 0.3); }
+        .error-message { background: #f8d7da; color: #721c24; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; border: 1px solid #f5c6cb; }
+        .success-message { background: #d4edda; color: #155724; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; border: 1px solid #c3e6cb; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @media (max-width: 768px) { .header h1 { font-size: 22px; } .registration-form, .question-card, .results-card { padding: 24px; } .question-text { font-size: 16px; } .score-circle { width: 150px; height: 150px; } .score-value { font-size: 36px; } .progress-info { flex-direction: column; gap: 8px; align-items: flex-start; } .btn-nav { min-width: 120px; } }
+        @media (max-width: 480px) { body { padding: 12px; } .header h1 { font-size: 20px; } .registration-form, .question-card, .results-card { padding: 16px; } .question-text { font-size: 15px; } .choice { padding: 12px; font-size: 14px; } .score-circle { width: 120px; height: 120px; } .score-value { font-size: 28px; } .score-message { font-size: 18px; } }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>برنامج التثقيف الصحي للعاملين في منشآت الغذاء</h1>
-            <p>Health Education Programme for Workers in Food Establishments</p>
+        <div class="lang-selector" id="langSelector">
+            <button class="lang-btn active" onclick="setLanguage('ar')">العربية</button>
+            <button class="lang-btn" onclick="setLanguage('en')">English</button>
+            <button class="lang-btn" onclick="setLanguage('fil')">Filipino</button>
+            <button class="lang-btn" onclick="setLanguage('ur')">اردو</button>
         </div>
-
-        <!-- Registration Section -->
+        <div class="header">
+            <h1 id="mainTitle">برنامج التثقيف الصحي للعاملين في منشآت الغذاء</h1>
+            <p id="subTitle">Health Education Programme for Workers in Food Establishments</p>
+        </div>
         <div class="registration-section" id="registrationSection">
             <div class="registration-form">
                 <form id="registrationForm">
                     <div class="form-group">
-                        <label for="userName">الاسم الكامل *</label>
+                        <label for="userName" id="labelName">الاسم الكامل *</label>
                         <input type="text" id="userName" placeholder="أدخل اسمك الكامل" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="residencyNumber">رقم الإقامة *</label>
+                        <label for="residencyNumber" id="labelResidency">رقم الإقامة *</label>
                         <input type="text" id="residencyNumber" placeholder="أدخل رقم الإقامة" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="restaurantName">اسم المطعم / المنشأة *</label>
+                        <label for="restaurantName" id="labelRestaurant">اسم المطعم / المنشأة *</label>
                         <input type="text" id="restaurantName" placeholder="أدخل اسم المطعم أو المنشأة" required>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">ابدأ الاختبار</button>
+                    <button type="submit" class="btn btn-primary" id="btnStart">ابدأ الاختبار</button>
                 </form>
             </div>
         </div>
-
-        <!-- Quiz Section -->
         <div class="quiz-section" id="quizSection">
             <div class="progress-container">
                 <div class="progress-info">
@@ -573,20 +112,13 @@
                     <div class="progress-fill" id="progressFill" style="width: 2%"></div>
                 </div>
             </div>
-
-            <div class="question-card" id="questionCard">
-                <!-- Questions will be rendered here -->
-            </div>
-
+            <div class="question-card" id="questionCard"></div>
             <div class="btn-navigation">
                 <button class="btn-nav" id="prevBtn" onclick="previousQuestion()">السابق</button>
                 <button class="btn-nav" id="nextBtn" onclick="nextQuestion()">التالي</button>
             </div>
-
-            <button class="btn btn-submit" onclick="submitQuiz()">إنهاء الاختبار</button>
+            <button class="btn btn-submit" id="btnSubmit" onclick="submitQuiz()">إنهاء الاختبار</button>
         </div>
-
-        <!-- Results Section -->
         <div class="results-section" id="resultsSection">
             <div class="results-card">
                 <div class="score-display">
@@ -599,388 +131,1163 @@
                     <div class="score-message" id="scoreMessage"></div>
                     <div class="score-percentage" id="scorePercentageText"></div>
                 </div>
-
                 <div id="messagesContainer"></div>
-
                 <div class="wrong-answers" id="wrongAnswersContainer">
-                    <h3>الإجابات الخاطئة:</h3>
+                    <h3 id="wrongTitle">الإجابات الخاطئة:</h3>
                     <div id="wrongAnswersList"></div>
                 </div>
-
-                <button class="btn btn-send-results" onclick="sendToGoogleSheets()">إرسال النتائج</button>
-                <button class="btn btn-reset" onclick="resetQuiz()">إجراء الاختبار مرة أخرى</button>
+                <button class="btn btn-send-results" onclick="sendToGoogleSheets()" id="btnSend">إرسال النتائج</button>
+                <button class="btn btn-reset" onclick="resetQuiz()" id="btnReset">إجراء الاختبار مرة أخرى</button>
             </div>
         </div>
     </div>
-
     <script>
-        // ============ Quiz Data ============
-        const allQuestions = [
-            {q: "ما هو الهدف الرئيسي من التثقيف الصحي للعاملين في منشآت الغذاء؟", choices: ["تحسين الإنتاجية وزيادة الأرباح", "ضمان سلامة الغذاء المقدّم للمستفيدين وحماية الصحة العامة", "تعزيز معايير النظافة الشخصية فقط"], answer: 1},
-            {q: "من هم متداولو الغذاء؟", choices: ["الأفراد الذين يقومون بتحضير الغذاء فقط", "جميع العاملين الذين يتعاملون بشكل مباشر أو غير مباشر مع الغذاء وأدواته", "مدراء المنشأة فقط"], answer: 1},
-            {q: "ماذا يجب أن تفعل إذا شعرت بأعراض مرض معدٍ أثناء العمل؟", choices: ["الاستمرار في العمل مع ارتداء الكمامة فقط", "إخبار المشرف والتوقف عن التعامل مع الغذاء", "غسل اليدين جيداً والاستمرار في العمل"], answer: 1},
-            {q: "كم مدة صلاحية الشهادة الصحية؟", choices: ["سنتين", "سنة واحدة", "ثلاث سنوات"], answer: 1},
-            {q: "ما هي الرقابة الصحية الذاتية؟", choices: ["رقابة تقوم بها الجهات الحكومية فقط", "فحص دوري يقوم به مدير المنشأة والمشرفون والعاملون", "تفتيش سنوي من وزارة الصحة"], answer: 1},
-            {q: "ما هو التثقيف الصحي التنشيطي؟", choices: ["تدريب يتم مرة واحدة فقط", "تدريب منتظم كل 3 سنوات لتذكيرك بما تعلمته", "تدريب خاص بالمشرفين فقط"], answer: 1},
-            {q: "التثقيف الصحي يشمل تدريباً للعمال الجدد والحاليين", choices: ["صح", "خطأ", "للعمال الجدد فقط"], answer: 0},
-            {q: "الرقابة الصحية الذاتية هي مسؤولية المشرفين فقط", choices: ["صح", "خطأ", "حسب حجم المنشأة"], answer: 1},
-            {q: "كم عدد الأمراض التي تنتقل عبر الغذاء تقريباً؟", choices: ["أكثر من 50 مرض", "أكثر من 200 مرض", "أقل من 20 مرض"], answer: 1},
-            {q: "ما هي أنواع المخاطر الرئيسية على سلامة الغذاء؟", choices: ["ميكروبية وكيميائية فقط", "ميكروبية، وكيميائية، وفيزيائية، والحساسية", "فيزيائية فقط"], answer: 1},
-            {q: "ما الذي يعتبر مثالاً على التلوث غير المباشر (العرضي) للغذاء؟", choices: ["سقوط حشرة على الغذاء", "استخدام سكين غير نظيف لتقطيع غذاء مطبوخ", "لمس الغذاء بأيدي متسخة"], answer: 1},
-            {q: "يمكن للغذاء أن يتلوث في أي مرحلة من مراحل السلسلة الغذائية", choices: ["صح", "خطأ", "فقط أثناء التحضير"], answer: 0},
-            {q: "وجود نظام سلامة الغذاء يساعد في تقليل هدر الغذاء", choices: ["صح", "خطأ", "لا علاقة بينهما"], answer: 0},
-            {q: "ما هي البكتيريا؟", choices: ["كائنات حية كبيرة تُرى بالعين", "كائنات حية صغيرة جداً لا نراها بالعين", "مواد كيميائية ضارة"], answer: 1},
-            {q: "ما هي المنطقة الخطرة لنمو البكتيريا في الغذاء؟", choices: ["بين 0°م و10°م", "بين 5°م و63°م", "بين 70°م و100°م"], answer: 1},
-            {q: "ما هي أفضل طريقة للتحكم في نمو البكتيريا في الغذاء؟", choices: ["إضافة الملح للغذاء", "التحكم في درجة الحرارة والوقت", "تغليف الغذاء بإحكام فقط"], answer: 1},
-            {q: "جميع أنواع البكتيريا ضارة بالإنسان", choices: ["صح", "خطأ", "معظمها ضار"], answer: 1},
-            {q: "يمكن للبكتيريا أن تنمو وتتكاثر في الغذاء المجمد", choices: ["صح", "خطأ", "أحياناً"], answer: 1},
-            {q: "الطهي الجيد للغذاء يقتل معظم البكتيريا الضارة", choices: ["صح", "خطأ", "فقط بعض الأنواع"], answer: 0},
-            {q: "كم تستغرق البكتيريا للانقسام في الظروف المناسبة؟", choices: ["ساعة واحدة", "10-20 دقيقة", "يوم كامل"], answer: 1},
-            {q: "ما هي أفضل درجة حرارة لنمو البكتيريا؟", choices: ["5°م", "37°م (درجة حرارة الجسم)", "75°م"], answer: 1},
-            {q: "فوق أي درجة حرارة تتوقف البكتيريا عن النمو؟", choices: ["50°م", "63°م", "37°م"], answer: 1},
-            {q: "من أي درجة حرارة تموت معظم البكتيريا الضارة؟", choices: ["63°م", "75°م وأعلى", "50°م"], answer: 1},
-            {q: "ما هي الأغذية عالية الخطورة؟", choices: ["الأغذية الجافة مثل الحبوب والبسكويت", "الأغذية الجاهزة للأكل الغنية بالبروتين والرطوبة", "الأغذية المعلبة فقط"], answer: 1},
-            {q: "الفيروسات تتكاثر داخل الغذاء", choices: ["صح", "خطأ، تتكاثر داخل جسم الإنسان", "أحياناً"], answer: 1},
-            {q: "الفطريات (العفن) يمكنها النمو في درجات حرارة متنوعة حتى في الثلاجة", choices: ["صح", "خطأ", "فقط في درجة حرارة الغرفة"], answer: 0},
-            {q: "ما هي ملوثات الغذاء الكيميائية؟", choices: ["البكتيريا والفيروسات", "مواد مثل المبيدات ومواد التنظيف والمواد الحافظة الزائدة", "قطع الزجاج والمعادن"], answer: 1},
-            {q: "الملوثات الفيزيائية دائماً مرئية بالعين المجردة", choices: ["صح", "خطأ", "في الغالب نعم"], answer: 1},
-            {q: "يجب تغطية الغذاء المكشوف قبل رش المبيدات الحشرية", choices: ["صح", "خطأ", "فقط إذا كان الرش قريباً"], answer: 0},
-            {q: "التلوث الكيميائي للغذاء يحدث فقط عن طريق الخطأ", choices: ["صح", "خطأ، قد يحدث بقصد أو بدون قصد", "نادراً"], answer: 1},
-            {q: "ما هو الإجراء الصحيح عند ملاحظة تلف في المعدات؟", choices: ["محاولة إصلاحها بنفسك", "إبلاغ المشرف فوراً", "الاستمرار في استخدامها حتى نهاية اليوم"], answer: 1},
-            {q: "أي من التالي يعتبر من الملوثات الفيزيائية للغذاء؟", choices: ["البكتيريا", "مواد التنظيف", "قطع الزجاج الصغيرة"], answer: 2},
-            {q: "كيف يجب التعامل مع المواد الكيميائية في منشأة الغذاء؟", choices: ["تخزينها مع المواد الغذائية لسهولة الوصول", "نقلها من عبواتها الأصلية إلى عبوات أصغر", "تخزينها في أماكن مخصصة بعيداً عن الغذاء"], answer: 2},
-            {q: "ما هو فساد الغذاء؟", choices: ["تغير في لون الغذاء فقط", "عملية تدهور تؤدي إلى تغير اللون والرائحة والملمس والطعم", "إضافة مواد حافظة للغذاء"], answer: 1},
-            {q: "جميع أنواع الأغذية تفسد بنفس السرعة", choices: ["صح", "خطأ", "تقريباً نعم"], answer: 1},
-            {q: "الغذاء الفاسد دائماً ما يكون له رائحة كريهة", choices: ["صح", "خطأ، بعض الغذاء الملوث قد يبدو طبيعياً", "في معظم الحالات"], answer: 1},
-            {q: "انتفاخ العلب المعدنية قد يكون علامة على فساد الغذاء", choices: ["صح", "خطأ", "لا علاقة"], answer: 0},
-            {q: "ما هو الإجراء الصحيح عند ملاحظة علامات فساد على الغذاء عند استلامه؟", choices: ["قبول الغذاء وتخزينه بعيداً عن الأغذية الأخرى", "رفض استلام الغذاء", "قبول الغذاء واستخدامه بسرعة"], answer: 1},
-            {q: "ما هي إحدى علامات فساد اللحوم؟", choices: ["زيادة في الحجم", "تغير اللون إلى الرمادي أو الأخضر", "ظهور بقع بيضاء"], answer: 1},
-            {q: "الأطفال تحت سن 5 سنوات من الفئات الأكثر عرضة للإصابة بالتسمم الغذائي", choices: ["صح", "خطأ", "فقط الرضع"], answer: 0},
-            {q: "البكتيريا المسببة للتسمم الغذائي موجودة فقط في الأغذية النيئة", choices: ["صح", "خطأ", "في معظم الحالات"], answer: 1},
-            {q: "أي من الأغذية التالية يعتبر من أكثر الأغذية المسببة للحساسية؟", choices: ["التفاح", "البطاطس", "الفول السوداني"], answer: 2},
-            {q: "ما هي درجة الحرارة المناسبة لحفظ الغذاء الساخن لمنع نمو البكتيريا؟", choices: ["37°م أو أعلى", "50°م أو أعلى", "63°م أو أعلى"], answer: 2},
-            {q: "ماذا يجب أن تفعل إذا لاحظت انتفاخاً في علبة معدنية للغذاء؟", choices: ["فتحها للتأكد من سلامة محتواها", "عدم استخدامها وإبلاغ المشرف فوراً", "وضعها في الثلاجة لتقليل الانتفاخ"], answer: 1},
-            {q: "يمكن ارتداء الحلي والساعات أثناء العمل في مجال الغذاء", choices: ["صح", "خطأ", "الساعات فقط مسموحة"], answer: 1},
-            {q: "يجب غسل اليدين قبل ارتداء القفازات وبعد تغييرها", choices: ["صح", "خطأ", "قبل الارتداء فقط"], answer: 0},
-            {q: "يمكن استخدام حوض غسل اليدين لغسل الأدوات والغذاء", choices: ["صح", "خطأ", "في حالات الطوارئ فقط"], answer: 1},
-            {q: "ما هي المدة المناسبة لغسل اليدين؟", choices: ["5 ثوانٍ", "10 ثوانٍ", "20 ثانية على الأقل"], answer: 2},
-            {q: "ماذا يجب أن تفعل إذا شعرت بالحاجة للعطس أثناء التعامل مع الغذاء؟", choices: ["العطس مباشرة على الغذاء", "الابتعاد عن الغذاء وتغطية الفم بالذراع", "العطس في يديك ثم مواصلة العمل"], answer: 1},
-            {q: "ما هو اللون المفضل للضمادات المستخدمة لتغطية الجروح في مناطق تحضير الغذاء؟", choices: ["الشفاف", "الأبيض", "الأزرق"], answer: 2},
-            {q: "التنظيف والتطهير هما نفس الشيء", choices: ["صح", "خطأ", "تقريباً"], answer: 1},
-            {q: "النفايات لا تشكل خطراً على سلامة الغذاء", choices: ["صح", "خطأ", "إذا كانت بعيدة عن الغذاء"], answer: 1},
-            {q: "وجود روائح غريبة في المنشأة قد يكون علامة على وجود آفات", choices: ["صح", "خطأ", "لا علاقة"], answer: 0},
-            {q: "ما هي درجة حرارة الماء المناسبة للتنظيف الرئيسي؟", choices: ["25°م", "50°م", "63°م"], answer: 1},
-            {q: "أي من التالي ليس من خصائص حاويات النفايات المثالية؟", choices: ["تفتح باليد", "مقاومة للآفات", "مزودة بغطاء محكم"], answer: 0},
-            {q: "ماذا يجب أن تفعل إذا لاحظت علامات وجود آفات في منشأة الغذاء؟", choices: ["تجاهل الأمر إذا كانت الآفات قليلة", "إبلاغ المشرف فوراً", "محاولة مكافحة الآفات بنفسك"], answer: 1},
-            {q: "الاشتراطات العامة لمنشآت الغذاء تشمل فقط تصميم المباني ولا تهتم بجودة الأدوات والمعدات", choices: ["صح", "خطأ", "حسب نوع المنشأة"], answer: 1},
-            {q: "يجب أن تكون الأرضيات والجدران والأسقف في منشآت الغذاء مقاومة للماء وسهلة التنظيف", choices: ["صح", "خطأ", "الأرضيات فقط"], answer: 0},
-            {q: "من الممكن استخدام نفس الحوض لغسل الخضروات وغسل الأواني", choices: ["صح", "خطأ، يجب فحصها على طاولة نظيفة", "إذا تم تنظيفه بينهما"], answer: 1},
-            {q: "ما الهدف الرئيسي من الفصل بين المناطق النظيفة وغير النظيفة في منشآت الغذاء؟", choices: ["توفير مساحة أكبر للعمل", "منع انتقال التلوث بين المناطق المختلفة", "تسهيل عملية التنظيف فقط"], answer: 1},
-            {q: "لماذا يجب أن تكون الأدوات والمعدات في منشآت الغذاء مصنوعة من مواد معينة؟", choices: ["لتكون أرخص ثمناً", "لتكون أثقل وزناً وأكثر ثباتاً", "لتكون آمنة وسهلة التنظيف"], answer: 2},
-            {q: "ما هو الإجراء الصحيح عند ملاحظة مصباح معطل في منطقة إعداد الغذاء؟", choices: ["تجاهل الأمر طالما هناك إضاءة كافية من مصادر أخرى", "محاولة إصلاح المصباح بنفسك", "الإبلاغ فوراً عن المصباح المعطل للمشرف"], answer: 2},
-            {q: "ما هو نظام الهاسب (HACCP)؟", choices: ["نظام لتنظيف المعدات", "نظام تحليل المخاطر ونقاط التحكم الحرجة لإدارة سلامة الغذاء", "نظام لتدريب العاملين فقط"], answer: 1},
-            {q: "إدارة سلامة الغذاء تهتم فقط بمرحلة التحضير والتقديم في المنشأة الغذائية", choices: ["صح", "خطأ", "في المطاعم الكبيرة فقط"], answer: 1},
-            {q: "نظام الهاسب (HACCP) يركز على معالجة المشاكل بعد حدوثها", choices: ["صح", "خطأ، يركز على الوقاية", "أحياناً"], answer: 1},
-            {q: "ما هي الخطوة الأولى في عملية تطبيق نظام الهاسب؟", choices: ["إجراء تحليل المخاطر", "تشكيل فريق الهاسب", "تحديد نقاط التحكم الحرجة"], answer: 1},
-            {q: "ما هو الهدف الرئيسي من إنشاء نظام للتوثيق وحفظ السجلات في نظام الهاسب؟", choices: ["زيادة الأعباء الإدارية على العاملين", "إثبات تطبيق وصيانة نظام الهاسب", "تحسين العلاقات مع الموردين"], answer: 1},
-            {q: "يجب تخزين الغذاء المبرد في درجة حرارة 5°م أو أقل", choices: ["صح", "خطأ", "8°م أو أقل"], answer: 0},
-            {q: "يمكن إعادة تسخين الغذاء لدرجة حرارة 60°م فقط", choices: ["صح", "خطأ، يجب إعادة تسخينه لـ 82°م أو أعلى", "حسب نوع الغذاء"], answer: 1},
-            {q: "من الضروري فصل الأغذية النيئة عن الأغذية الجاهزة للأكل أثناء التحضير", choices: ["صح", "خطأ", "فقط مع اللحوم"], answer: 0},
-            {q: "ما هي درجة الحرارة الداخلية المناسبة لطهي الغذاء بشكل آمن؟", choices: ["50°م", "63°م", "75°م"], answer: 2},
-            {q: "كم من الوقت يجب أن يستغرق تبريد الغذاء الساخن؟", choices: ["خلال ساعة واحدة", "خلال ساعة ونصف", "خلال ساعتين"], answer: 1},
-            {q: "عند عرض الغذاء الساخن، ما هي درجة الحرارة المناسبة؟", choices: ["55°م أو أعلى", "60°م أو أعلى", "63°م أو أعلى"], answer: 2},
-            {q: "ما هي درجة حرارة نقل الغذاء المجمد؟", choices: ["-5°م أو أقل", "-18°م أو أقل", "-10°م أو أقل"], answer: 1},
-            {q: "ما هو مبدأ FIFO في إدارة المخزون؟", choices: ["الوارد أخيراً يصرف أولاً", "الوارد أولاً يصرف أولاً", "الأغلى ثمناً يصرف أولاً"], answer: 1},
-            {q: "ما هي درجة حرارة تخزين الغذاء الجاف المناسبة؟", choices: ["لا تزيد عن 25°م", "لا تزيد عن 35°م", "لا تزيد عن 15°م"], answer: 0},
-            {q: "عند استلام الأغذية يجب فحصها على الأرض مباشرة", choices: ["صح", "خطأ، يجب فحصها على طاولة نظيفة", "حسب نوع الغذاء"], answer: 1},
-            {q: "ما هو الغرض من التطهير؟", choices: ["إزالة بقايا الغذاء والأوساخ المرئية", "قتل البكتيريا والفيروسات بعد التنظيف", "تجفيف الأسطح بعد الغسيل"], answer: 1},
-            {q: "ما هي درجة حرارة الماء الساخن المستخدمة للتطهير؟", choices: ["50°م", "63°م", "82°م"], answer: 2},
-            {q: "أين توجد بكتيريا السالمونيلا عادة؟", choices: ["في الأرز المطبوخ", "داخل الدواجن واللحوم والبيض", "في منتجات الألبان فقط"], answer: 1},
-            {q: "بكتيريا باسيلس سيريوس توجد عادة في:", choices: ["اللحوم النيئة", "الأرز المطبوخ والسلطات", "منتجات الألبان"], answer: 1},
-            {q: "ما هي أعراض التسمم الغذائي الشائعة؟", choices: ["صداع وآلام في الظهر", "ألم في البطن، تقيؤ، غثيان، إسهال، حمى", "سعال وضيق في التنفس"], answer: 1},
-            {q: "متى تظهر أعراض التسمم الغذائي عادة؟", choices: ["فوراً بعد الأكل", "بين ساعتين و36 ساعة بعد تناول الغذاء الملوث", "بعد أسبوع على الأقل"], answer: 1},
-            {q: "ما الفرق بين التنظيف والتطهير؟", choices: ["لا يوجد فرق", "التنظيف يزيل الأوساخ المرئية والتطهير يقتل الميكروبات", "التطهير يأتي قبل التنظيف"], answer: 1},
-            {q: "يجب تغيير القفازات كل كم من الوقت؟", choices: ["كل ساعة", "كل نصف ساعة", "كل ساعتين"], answer: 1},
-            {q: "سلامة الغذاء مهمة فقط للمطاعم الكبيرة", choices: ["صح", "خطأ، مهمة لجميع منشآت الغذاء", "حسب عدد العملاء"], answer: 1},
-            {q: "ما هي الحساسية الغذائية؟", choices: ["تسمم غذائي بسبب البكتيريا", "رد فعل غير عادي من جهاز المناعة تجاه بعض أنواع الغذاء", "عدم الرغبة في تناول أطعمة معينة"], answer: 1},
-            {q: "النظافة الشخصية تبدأ:", choices: ["عند الوصول لمكان العمل", "قبل الوصول للعمل (من المنزل)", "عند بدء تحضير الغذاء"], answer: 1},
-            {q: "ما هو أول إجراء يجب القيام به قبل بدء العمل؟", choices: ["تشغيل المعدات", "خلع الساعة والحلي وغسل اليدين", "ارتداء القفازات مباشرة"], answer: 1},
-            {q: "يجب تخزين الأغذية على أرفف بارتفاع كم سم على الأقل عن الأرض؟", choices: ["5 سم", "15 سم", "30 سم"], answer: 1}
-        ];
+        let currentLang = 'ar';
+        const UI = {
+            ar: { title: "برنامج التثقيف الصحي للعاملين في منشآت الغذاء", subtitle: "Health Education Programme for Workers in Food Establishments", labelName: "الاسم الكامل *", labelResidency: "رقم الإقامة *", labelRestaurant: "اسم المطعم / المنشأة *", phName: "أدخل اسمك الكامل", phResidency: "أدخل رقم الإقامة", phRestaurant: "أدخل اسم المطعم أو المنشأة", btnStart: "ابدأ الاختبار", btnPrev: "السابق", btnNext: "التالي", btnSubmit: "إنهاء الاختبار", btnSend: "إرسال النتائج", btnReset: "إجراء الاختبار مرة أخرى", wrongTitle: "الإجابات الخاطئة:", qOf: "السؤال {0} من 50", question: "السؤال", fillAll: "يرجى ملء جميع الحقول المطلوبة", noAnswer: "لم يتم الإجابة", yourAnswer: "إجابتك:", correctAnswer: "✓ الإجابة الصحيحة:", noWrong: "لا توجد إجابات خاطئة! أنت تميز فوق العادة", excellent: "ممتاز! أنت لديك فهم عميق لسلامة الغذاء", good: "جيد! لديك معرفة جيدة بسلامة الغذاء", acceptable: "مقبول. يرجى مراجعة المواد التثقيفية", needStudy: "يرجى متابعة الدراسة والتدريب على سلامة الغذاء", percentage: "النسبة المئوية:", sendSuccess: "تم إرسال النتائج بنجاح إلى Google Sheets", sendError: "حدث خطأ أثناء إرسال البيانات. يرجى المحاولة لاحقاً", dir: "rtl" },
+            en: { title: "Health Education Program for Food Establishment Workers", subtitle: "Food Safety Training Quiz", labelName: "Full Name *", labelResidency: "Residency Number *", labelRestaurant: "Restaurant / Establishment Name *", phName: "Enter your full name", phResidency: "Enter residency number", phRestaurant: "Enter restaurant or establishment name", btnStart: "Start Quiz", btnPrev: "Previous", btnNext: "Next", btnSubmit: "Finish Quiz", btnSend: "Send Results", btnReset: "Take Quiz Again", wrongTitle: "Wrong Answers:", qOf: "Question {0} of 50", question: "Question", fillAll: "Please fill in all required fields", noAnswer: "Not answered", yourAnswer: "Your answer:", correctAnswer: "✓ Correct answer:", noWrong: "No wrong answers! Excellent performance!", excellent: "Excellent! You have a deep understanding of food safety", good: "Good! You have good knowledge of food safety", acceptable: "Acceptable. Please review the educational materials", needStudy: "Please continue studying and training on food safety", percentage: "Percentage:", sendSuccess: "Results sent successfully to Google Sheets", sendError: "Error sending data. Please try again later", dir: "ltr" },
+            fil: { title: "Programa ng Edukasyong Pangkalusugan para sa mga Manggagawa sa Food Establishments", subtitle: "Food Safety Training Quiz", labelName: "Buong Pangalan *", labelResidency: "Numero ng Residensya *", labelRestaurant: "Pangalan ng Restaurant / Establisyamento *", phName: "Ilagay ang buong pangalan", phResidency: "Ilagay ang numero ng residensya", phRestaurant: "Ilagay ang pangalan ng restaurant", btnStart: "Simulan ang Pagsusulit", btnPrev: "Nakaraan", btnNext: "Susunod", btnSubmit: "Tapusin ang Pagsusulit", btnSend: "Ipadala ang Resulta", btnReset: "Kumuha Ulit ng Pagsusulit", wrongTitle: "Mga Maling Sagot:", qOf: "Tanong {0} sa 50", question: "Tanong", fillAll: "Mangyaring punan ang lahat ng kinakailangang field", noAnswer: "Hindi sinagot", yourAnswer: "Sagot mo:", correctAnswer: "✓ Tamang sagot:", noWrong: "Walang maling sagot! Napakagaling!", excellent: "Napakahusay! Malalim ang iyong pag-unawa sa food safety", good: "Magaling! Maganda ang iyong kaalaman sa food safety", acceptable: "Katanggap-tanggap. Mangyaring suriin ang mga materyal", needStudy: "Mangyaring magpatuloy sa pag-aaral at pagsasanay sa food safety", percentage: "Porsyento:", sendSuccess: "Matagumpay na naipadala ang mga resulta sa Google Sheets", sendError: "May error sa pagpapadala ng data. Subukan muli mamaya", dir: "ltr" },
+            ur: { title: "فوڈ اسٹیبلشمنٹ ورکرز کے لیے صحت کی تعلیم کا پروگرام", subtitle: "فوڈ سیفٹی ٹریننگ کوئز", labelName: "* پورا نام", labelResidency: "* اقامہ نمبر", labelRestaurant: "* ریستوران / ادارے کا نام", phName: "اپنا پورا نام درج کریں", phResidency: "اقامہ نمبر درج کریں", phRestaurant: "ریستوران کا نام درج کریں", btnStart: "کوئز شروع کریں", btnPrev: "پچھلا", btnNext: "اگلا", btnSubmit: "کوئز ختم کریں", btnSend: "نتائج بھیجیں", btnReset: "دوبارہ کوئز دیں", wrongTitle: "غلط جوابات:", qOf: "سوال {0} از 50", question: "سوال", fillAll: "براہ کرم تمام مطلوبہ فیلڈز بھریں", noAnswer: "جواب نہیں دیا", yourAnswer: "آپ کا جواب:", correctAnswer: "✓ صحیح جواب:", noWrong: "کوئی غلط جواب نہیں! بہترین کارکردگی!", excellent: "بہترین! آپ کو فوڈ سیفٹی کی گہری سمجھ ہے", good: "اچھا! آپ کو فوڈ سیفٹی کا اچھا علم ہے", acceptable: "قابل قبول۔ براہ کرم تعلیمی مواد کا جائزہ لیں", needStudy: "براہ کرم فوڈ سیفٹی کی تعلیم اور تربیت جاری رکھیں", percentage: "فیصد:", sendSuccess: "نتائج کامیابی سے Google Sheets کو بھیج دیے گئے", sendError: "ڈیٹا بھیجنے میں خرابی۔ بعد میں دوبارہ کوشش کریں", dir: "rtl" }
+        };
 
-        // ============ Global Variables ============
+        const allQuestions = [
+{
+  q_ar: "ما هو الهدف الرئيسي من التثقيف الصحي للعاملين في منشآت الغذاء؟",
+  q_en: "What is the main objective of health education for food facility workers?",
+  q_fil: "Ano ang pangunahing layunin ng edukasyong kalusugan para sa mga manggagawa sa pasilidad ng pagkain?",
+  q_ur: "کھانے کی سہولیات میں کام کرنے والوں کے لیے صحت کی تعلیم کا بنیادی مقصد کیا ہے؟",
+  c_ar: ["تحسین الإنتاجية وزيادة الأرباح", "ضمان سلامة الغذاء المقدّم للمستفيدین وحماية الصحة العامة", "تعزیز معایير النظافة الشخصية فقط"],
+  c_en: ["Improving productivity and increasing profits", "Ensuring food safety provided to beneficiaries and protecting public health", "Promoting personal hygiene standards only"],
+  c_fil: ["Pagpapabuti ng produktibidad at pagtaas ng kita", "Pagsisiguro ng kaligtasan ng pagkain na ibinibigay sa mga benepisyaryo at protektahan ang kalusugan ng publiko", "Pagsusulong lamang ng mga pamantayan ng personal na kalinisan"],
+  c_ur: ["پروڈکٹیویٹی میں بہتری اور منافع میں اضافہ", "فراہم کردہ کھانے کی حفاظت کو یقینی بنانا اور عوامی صحت کی حمایت کرنا", "صرف ذاتی صفائی کے معیار کو فروغ دینا"],
+  answer: 1
+},
+{
+  q_ar: "من هم متداولو الغذاء؟",
+  q_en: "Who are food handlers?",
+  q_fil: "Sino ang mga naghahandle ng pagkain?",
+  q_ur: "کھانے کی نمائندگی کار کون ہیں؟",
+  c_ar: ["الأفراد الذین یقومون بتحضیر الغذاء فقط", "جمیع العاملین الذین یتعاملون بشكل مباشر أو غير مباشر مع الغذاء وأدواته", "مدراء المنشأة فقط"],
+  c_en: ["Individuals who only prepare food", "All workers who handle food directly or indirectly and its utensils", "Facility managers only"],
+  c_fil: ["Mga indibidwal na bumubuo lamang ng pagkain", "Lahat ng manggagawa na nakikipag-ugnayan nang direkta o hindi direkta sa pagkain at ang mga kasangkapan nito", "Mga pinuno ng pasilidad lamang"],
+  c_ur: ["وہ افراد جو صرف کھانا تیار کرتے ہیں", "تمام کارکنان جو براہ راست یا بالواسطہ کھانے اور اس کے برتن سے نمٹتے ہیں", "صرف سہولت کے منیجر"],
+  answer: 1
+},
+{
+  q_ar: "ماذا یجب أن تفعل إذا شعرت بأعراض مرض معدٍ أثناء العمل؟",
+  q_en: "What should you do if you feel symptoms of an infectious disease while working?",
+  q_fil: "Ano ang dapat mong gawin kung pakiramdam mo ay ang mga sintomas ng nakakahawang sakit habang nagtatrabaho?",
+  q_ur: "اگر آپ کو کام کے دوران متعدی بیماری کی علامات محسوس ہوں تو کیا کریں؟",
+  c_ar: ["الاستمرار في العمل مع ارتداء الكمامة فقط", "إخبار المشرف والتوقف عن التعامل مع الغذاء", "غسل اليدین جيداً والاستمرار في العمل"],
+  c_en: ["Continue working while wearing a mask only", "Inform the supervisor and stop handling food", "Wash hands thoroughly and continue working"],
+  c_fil: ["Magpatuloy sa pagtratrabaho habang suot lamang ang mask", "Ipaalam sa supervisor at huminto sa paghahandle ng pagkain", "Hugasan ang mga kamay nang mabuti at magpatuloy sa trabaho"],
+  c_ur: ["صرف ماسک پہن کر کام جاری رکھیں", "سپروائزر کو بتائیں اور کھانے کی ہینڈلنگ بند کریں", "ہاتھوں کو اچھی طرح دھو کر کام جاری رکھیں"],
+  answer: 1
+},
+{
+  q_ar: "كم مدة صلاحية الشهادة الصحية؟",
+  q_en: "What is the validity period of the health certificate?",
+  q_fil: "Ano ang panahon ng pagiging wasto ng sertipikong pangkalusugan?",
+  q_ur: "صحت کے سرٹیفکیٹ کی تعیینات کی مدت کتنی ہے؟",
+  c_ar: ["سنتین", "سنة واحدة", "ثلاث سنوات"],
+  c_en: ["Two years", "One year", "Three years"],
+  c_fil: ["Dalawang taon", "Isang taon", "Tatlong taon"],
+  c_ur: ["دو سال", "ایک سال", "تین سال"],
+  answer: 1
+},
+{
+  q_ar: "ما هي الرقابة الصحية الذاتية؟",
+  q_en: "What is self-health monitoring?",
+  q_fil: "Ano ang self-health monitoring?",
+  q_ur: "خود صحت کی نگرانی کیا ہے؟",
+  c_ar: ["رقابة تقوم بها الجهات الحكومية فقط", "فحص دوري یقوم به مدیر المنشأة والمشرفون والعاملون", "تفتيش سنوي من وزارة الصحة"],
+  c_en: ["Monitoring done only by government authorities", "Periodic inspection conducted by facility manager, supervisors, and workers", "Annual inspection by the Ministry of Health"],
+  c_fil: ["Pagsasantabi na isinasagawa lamang ng mga awtoridad ng pamahalaan", "Peryodikong inspeksyon na isinasagawa ng manager ng pasilidad, mga supervisor, at mga manggagawa", "Taunang inspeksyon ng Ministro ng Kalusugan"],
+  c_ur: ["صرف حکومتی حکام کی طرف سے نگرانی", "سہولت کے منیجر، سپروائزر اور کارکنان کی طرف سے دوری معائنہ", "صحت کی وزارت کی سالانہ تفتیش"],
+  answer: 1
+},
+{
+  q_ar: "ما هو التثقيف الصحي التنشيطي؟",
+  q_en: "What is refresher health education?",
+  q_fil: "Ano ang refresher health education?",
+  q_ur: "تازہ صحت کی تعلیم کیا ہے؟",
+  c_ar: ["تدریب یتم مرة واحدة فقط", "تدریب منتظم كل 3 سنوات لتذكيرك بما تعلمته", "تدریب خاص بالمشرفین فقط"],
+  c_en: ["Training done only once", "Regular training every 3 years to remind you of what you have learned", "Training for supervisors only"],
+  c_fil: ["Pagsasanay na isinagawa lamang minsan", "Regular na pagsasanay tuwing 3 taon upang ipaalala sa iyo kung ano ang natuto mo", "Pagsasanay para sa mga supervisor lamang"],
+  c_ur: ["صرف ایک بار کی جانے والی تربیت", "ہر 3 سال میں باقاعدہ تربیت آپ کو یاد دلانے کے لیے کہ آپ نے کیا سیکھا ہے", "صرف سپروائزر کے لیے تربیت"],
+  answer: 1
+},
+{
+  q_ar: "التثقيف الصحي يشمل تدريباً للعمال الجدد والحاليين",
+  q_en: "Health education includes training for new and current workers",
+  q_fil: "Ang edukasyong kalusugan ay nagsasama ng pagsasanay para sa mga bagong at kasalukuyang manggagawa",
+  q_ur: "صحت کی تعلیم نئے اور موجودہ کارکنان کے لیے تربیت شامل کرتی ہے",
+  c_ar: ["صح", "خطأ", "للعمال الجدد فقط"],
+  c_en: ["True", "False", "For new workers only"],
+  c_fil: ["Tama", "Mali", "Para sa mga bagong manggagawa lamang"],
+  c_ur: ["صحیح", "غلط", "صرف نئے کارکنان کے لیے"],
+  answer: 0
+},
+{
+  q_ar: "الرقابة الصحية الذاتية هي مسؤولية المشرفين فقط",
+  q_en: "Self-health monitoring is the responsibility of supervisors only",
+  q_fil: "Ang self-health monitoring ay responsibilidad lamang ng mga supervisor",
+  q_ur: "خود صحت کی نگرانی صرف سپروائزرز کی ذمہ داری ہے",
+  c_ar: ["صح", "خطأ", "حسب حجم المنشأة"],
+  c_en: ["True", "False", "Depending on facility size"],
+  c_fil: ["Tama", "Mali", "Depende sa laki ng pasilidad"],
+  c_ur: ["صحیح", "غلط", "سہولت کے سائز کے لحاظ سے"],
+  answer: 1
+},
+{
+  q_ar: "كم عدد الأمراض التي تنتقل عبر الغذاء تقريباً؟",
+  q_en: "Approximately how many diseases are transmitted through food?",
+  q_fil: "Humigit-kumulang gaano karaming mga sakit ang ipinapadala sa pamamagitan ng pagkain?",
+  q_ur: "تقریباً کتنی بیماریاں کھانے کے ذریعے منتقل ہوتی ہیں؟",
+  c_ar: ["أكثر من 50 مرض", "أكثر من 200 مرض", "أقل من 20 مرض"],
+  c_en: ["More than 50 diseases", "More than 200 diseases", "Less than 20 diseases"],
+  c_fil: ["Higit sa 50 na mga sakit", "Higit sa 200 na mga sakit", "Mas mababa sa 20 na mga sakit"],
+  c_ur: ["50 سے زیادہ بیماریاں", "200 سے زیادہ بیماریاں", "20 سے کم بیماریاں"],
+  answer: 1
+},
+{
+  q_ar: "ما هي أنواع المخاطر الرئيسية على سلامة الغذاء؟",
+  q_en: "What are the main types of food safety hazards?",
+  q_fil: "Ano ang mga pangunahing uri ng mga panganib sa kaligtasan ng pagkain?",
+  q_ur: "کھانے کی حفاظت کے لیے خطرات کی بنیادی اقسام کیا ہیں؟",
+  c_ar: ["میكروبية وكيميائية فقط", "میكروبية، وكيميائية، وفيزيائية، والحساسية", "فيزيائية فقط"],
+  c_en: ["Microbial and chemical only", "Microbial, chemical, physical, and allergens", "Physical only"],
+  c_fil: ["Microbial at chemical lamang", "Microbial, chemical, physical, at allergens", "Physical lamang"],
+  c_ur: ["صرف جرثومی اور کیمیکل", "جرثومی، کیمیکل، جسمانی اور الرجی", "صرف جسمانی"],
+  answer: 1
+},
+{
+  q_ar: "ما الذي یعتبر مثالاً على التلوث غير المباشر (العرضي) للغذاء؟",
+  q_en: "Which is an example of indirect (accidental) contamination of food?",
+  q_fil: "Alin ang halimbawa ng hindi direktang (aksidental) na kontaminasyon ng pagkain?",
+  q_ur: "کھانے کی بالواسطہ (حادثاتی) آلودگی کی مثال کون سی ہے؟",
+  c_ar: ["سقوط حشرة على الغذاء", "استخدام سكين غير نظيف لتقطيع غذاء مطبوخ", "لمس الغذاء بأيدي متسخة"],
+  c_en: ["Insect falling on food", "Using an unclean knife to cut cooked food", "Touching food with dirty hands"],
+  c_fil: ["Insektong nahuhulog sa pagkain", "Paggamit ng maruruming kutsilyo upang gupitin ang luto na pagkain", "Humipo sa pagkain ng maruruming mga kamay"],
+  c_ur: ["کھانے پر کیڑا گرنا", "پکے ہوئے کھانے کو کاٹنے کے لیے گندے چاقو کا استعمال", "گندے ہاتھوں سے کھانے کو چھونا"],
+  answer: 1
+},
+{
+  q_ar: "یمكن للغذاء أن یتلوث في أي مرحلة من مراحل السلسلة الغذائية",
+  q_en: "Food can be contaminated at any stage of the food chain",
+  q_fil: "Ang pagkain ay maaaring lumantad sa anumang yugto ng chain ng pagkain",
+  q_ur: "کھانا کھانے کی چین کے کسی بھی مرحلے میں آلودہ ہو سکتا ہے",
+  c_ar: ["صح", "خطأ", "فقط أثناء التحضير"],
+  c_en: ["True", "False", "Only during preparation"],
+  c_fil: ["Tama", "Mali", "Lamang sa panahon ng paghahanda"],
+  c_ur: ["صحیح", "غلط", "صرف تیاری کے دوران"],
+  answer: 0
+},
+{
+  q_ar: "وجود نظام سلامة الغذاء یساعد في تقليل هدر الغذاء",
+  q_en: "Having a food safety system helps reduce food waste",
+  q_fil: "Ang pagkakaroon ng sistema ng kaligtasan ng pagkain ay tumutulong na mabawasan ang labis na pagkain",
+  q_ur: "کھانے کی حفاظت کا نظام ہونے سے کھانے کی ضائع کو کم کرنے میں مدد ملتی ہے",
+  c_ar: ["صح", "خطأ", "لا علاقة بينهما"],
+  c_en: ["True", "False", "They are not related"],
+  c_fil: ["Tama", "Mali", "Hindi sila kaugnay"],
+  c_ur: ["صحیح", "غلط", "ان میں کوئی تعلق نہیں"],
+  answer: 0
+},
+{
+  q_ar: "ما هي البكتيریا؟",
+  q_en: "What are bacteria?",
+  q_fil: "Ano ang bacteria?",
+  q_ur: "بیکٹیریا کیا ہیں؟",
+  c_ar: ["كائنات حية كبيرة تُرى بالعين", "كائنات حية صغيرة جداً لا نراها بالعين", "مواد كيميائية ضارة"],
+  c_en: ["Large living organisms visible to the eye", "Very small living organisms not visible to the eye", "Harmful chemical substances"],
+  c_fil: ["Malalaking nabubuhay na organismo na makikita sa puso", "Napakaliit na nabubuhay na organismo na hindi nakikita sa puso", "Mapanganibang mga sangkap na kemikal"],
+  c_ur: ["بڑے حیات کاری جاندار جو آنکھ سے دیکھے جا سکتے ہیں", "بہت چھوٹے حیات کاری جاندار جو آنکھ سے نہیں دیکھے جا سکتے", "نقصان دہ کیمیائی مادے"],
+  answer: 1
+},
+{
+  q_ar: "ما هي المنطقة الخطرة لنمو البكتيریا في الغذاء؟",
+  q_en: "What is the danger zone for bacterial growth in food?",
+  q_fil: "Ano ang danger zone para sa paglaki ng bakterya sa pagkain?",
+  q_ur: "کھانے میں بیکٹیریا کی نمو کے لیے خطرناک علاقہ کیا ہے؟",
+  c_ar: ["بين 0°م و10°م", "بين 5°م و63°م", "بين 70°م و100°م"],
+  c_en: ["Between 0°C and 10°C", "Between 5°C and 63°C", "Between 70°C and 100°C"],
+  c_fil: ["Sa pagitan ng 0°C at 10°C", "Sa pagitan ng 5°C at 63°C", "Sa pagitan ng 70°C at 100°C"],
+  c_ur: ["0°C اور 10°C کے درمیان", "5°C اور 63°C کے درمیان", "70°C اور 100°C کے درمیان"],
+  answer: 1
+},
+{
+  q_ar: "ما هي أفضل طریقة للتحكم في نمو البكتيریا في الغذاء؟",
+  q_en: "What is the best way to control bacterial growth in food?",
+  q_fil: "Ano ang pinakamahusay na paraan upang kontrolin ang paglaki ng bakterya sa pagkain?",
+  q_ur: "کھانے میں بیکٹیریا کی نمو کو کنٹرول کرنے کا بہترین طریقہ کیا ہے؟",
+  c_ar: ["إضافة الملح للغذاء", "التحكم في درجة الحرارة والوقت", "تغليف الغذاء بإحكام فقط"],
+  c_en: ["Adding salt to food", "Controlling temperature and time", "Wrapping food tightly only"],
+  c_fil: ["Pagdagdag ng asin sa pagkain", "Pagkontrol ng temperatura at oras", "Pagwewrap ng pagkain nang mabuti lamang"],
+  c_ur: ["کھانے میں نمک شامل کرنا", "درجہ حرارت اور وقت کو کنٹرول کرنا", "صرف کھانے کو سخت طریقے سے لپیٹنا"],
+  answer: 1
+},
+{
+  q_ar: "جمیع أنواع البكتيریا ضارة بالإنسان",
+  q_en: "All types of bacteria are harmful to humans",
+  q_fil: "Ang lahat ng uri ng bakterya ay mapanganib sa mga tao",
+  q_ur: "بیکٹیریا کی تمام اقسام انسانوں کے لیے نقصان دہ ہیں",
+  c_ar: ["صح", "خطأ", "معظمها ضار"],
+  c_en: ["True", "False", "Most are harmful"],
+  c_fil: ["Tama", "Mali", "Karamihan ay mapanganib"],
+  c_ur: ["صحیح", "غلط", "اکثریت نقصان دہ ہے"],
+  answer: 1
+},
+{
+  q_ar: "یمكن للبكتيریا أن تنمو وتتكاثر في الغذاء المجمد",
+  q_en: "Bacteria can grow and multiply in frozen food",
+  q_fil: "Ang bacteria ay maaaring lumaki at magparami sa fixed na pagkain",
+  q_ur: "بیکٹیریا منجمد کھانے میں بڑھ اور ضرب دے سکتے ہیں",
+  c_ar: ["صح", "خطأ", "أحياناً"],
+  c_en: ["True", "False", "Sometimes"],
+  c_fil: ["Tama", "Mali", "Kung minsan"],
+  c_ur: ["صحیح", "غلط", "کبھی کبھی"],
+  answer: 1
+},
+{
+  q_ar: "الطهي الجيد للغذاء یقتل معظم البكتيریا الضارة",
+  q_en: "Proper cooking of food kills most harmful bacteria",
+  q_fil: "Ang tamang pagluluto ng pagkain ay pinapataas ang karamihan ng mapanganibang bacteria",
+  q_ur: "کھانے کو صحیح طریقے سے پکانے سے زیادہ تر نقصان دہ بیکٹیریا مر جاتے ہیں",
+  c_ar: ["صح", "خطأ", "فقط بعض الأنواع"],
+  c_en: ["True", "False", "Only some types"],
+  c_fil: ["Tama", "Mali", "Lamang ang ilang uri"],
+  c_ur: ["صحیح", "غلط", "صرف کچھ اقسام"],
+  answer: 0
+},
+{
+  q_ar: "كم تستغرق البكتيریا للانقسام في الظروف المناسبة؟",
+  q_en: "How long does it take for bacteria to divide under favorable conditions?",
+  q_fil: "Gaano katagal ang dadalhin ng bacteria upang hatiin sa ilalim ng pabor na kondisyon?",
+  q_ur: "موافق حالات میں بیکٹیریا کو تقسیم کرنے میں کتنا وقت لگتا ہے؟",
+  c_ar: ["ساعة واحدة", "10-20 دقيقة", "یوم كامل"],
+  c_en: ["One hour", "10-20 minutes", "A whole day"],
+  c_fil: ["Isang oras", "10-20 minuto", "Isang buong araw"],
+  c_ur: ["ایک گھنٹہ", "10-20 منٹ", "ایک پورا دن"],
+  answer: 1
+},
+{
+  q_ar: "ما هي أفضل درجة حرارة لنمو البكتيریا؟",
+  q_en: "What is the best temperature for bacterial growth?",
+  q_fil: "Ano ang pinakamahusay na temperatura para sa paglaki ng bakterya?",
+  q_ur: "بیکٹیریا کی نمو کے لیے بہترین درجہ حرارت کیا ہے؟",
+  c_ar: ["5°م", "37°م (درجة حرارة الجسم)", "75°م"],
+  c_en: ["5°C", "37°C (body temperature)", "75°C"],
+  c_fil: ["5°C", "37°C (temperatura ng katawan)", "75°C"],
+  c_ur: ["5°C", "37°C (جسم کا درجہ حرارت)", "75°C"],
+  answer: 1
+},
+{
+  q_ar: "فوق أي درجة حرارة تتوقف البكتيریا عن النمو؟",
+  q_en: "Above what temperature do bacteria stop growing?",
+  q_fil: "Sa itaas ng anong temperatura ang pagtigil ng mga bacteria sa paglaki?",
+  q_ur: "بیکٹیریا کس درجہ حرارت سے اوپر بڑھنا بند کر دیتے ہیں؟",
+  c_ar: ["50°م", "63°م", "37°م"],
+  c_en: ["50°C", "63°C", "37°C"],
+  c_fil: ["50°C", "63°C", "37°C"],
+  c_ur: ["50°C", "63°C", "37°C"],
+  answer: 1
+},
+{
+  q_ar: "من أي درجة حرارة تموت معظم البكتيریا الضارة؟",
+  q_en: "At what temperature do most harmful bacteria die?",
+  q_fil: "Sa anong temperatura ang namatayan ng karamihan ng mapanganibang bacteria?",
+  q_ur: "بیکٹیریا کس درجہ حرارت میں زیادہ تر نقصان دہ بیکٹیریا مر جاتے ہیں؟",
+  c_ar: ["63°م", "75°م وأعلى", "50°م"],
+  c_en: ["63°C", "75°C and above", "50°C"],
+  c_fil: ["63°C", "75°C at pataas", "50°C"],
+  c_ur: ["63°C", "75°C اور اس سے اوپر", "50°C"],
+  answer: 1
+},
+{
+  q_ar: "ما هي الأغذية عالية الخطورة؟",
+  q_en: "What are high-risk foods?",
+  q_fil: "Ano ang mataas na panganib na mga pagkain?",
+  q_ur: "زیادہ خطرناک کھانے کون سے ہیں؟",
+  c_ar: ["الأغذية الجافة مثل الحبوب والبسكويت", "الأغذية الجاهزة للأكل الغنية بالبروتين والرطوبة", "الأغذية المعلبة فقط"],
+  c_en: ["Dry foods like grains and biscuits", "Ready-to-eat foods rich in protein and moisture", "Canned foods only"],
+  c_fil: ["Mga tuyong pagkain tulad ng mga butil at biscuits", "Handang kainin na mga pagkain na yaman sa protina at kaluigan", "Mga canned na pagkain lamang"],
+  c_ur: ["خشک کھانے جیسے اناج اور بسکٹ", "پروٹین اور نمی سے بھرپور کھانے کے لیے تیار کھانے", "صرف ڈبہ بند کھانے"],
+  answer: 1
+},
+{
+  q_ar: "الفيروسات تتكاثر داخل الغذاء",
+  q_en: "Viruses reproduce inside food",
+  q_fil: "Ang mga virus ay nagparami sa loob ng pagkain",
+  q_ur: "وائرس کھانے کے اندر دوبارہ پیدا کرتے ہیں",
+  c_ar: ["صح", "خطأ، تتكاثر داخل جسم الإنسان", "أحياناً"],
+  c_en: ["True", "False, they reproduce inside the human body", "Sometimes"],
+  c_fil: ["Tama", "Mali, nagparami sila sa loob ng katawan ng tao", "Kung minsan"],
+  c_ur: ["صحیح", "غلط، وہ انسانی جسم کے اندر دوبارہ پیدا ہوتے ہیں", "کبھی کبھی"],
+  answer: 1
+},
+{
+  q_ar: "الفطریات (العفن) یمكنها النمو في درجات حرارة متنوعة حتى في الثلاجة",
+  q_en: "Fungi (mold) can grow at various temperatures even in the refrigerator",
+  q_fil: "Ang mga pungal (amag) ay maaaring lumaki sa iba't ibang temperatura kahit sa refrigerator",
+  q_ur: "فنگس (سڑن) مختلف درجہ حرارت میں بڑھ سکتے ہیں یہاں تک کہ فریج میں بھی",
+  c_ar: ["صح", "خطأ", "فقط في درجة حرارة الغرفة"],
+  c_en: ["True", "False", "Only at room temperature"],
+  c_fil: ["Tama", "Mali", "Lamang sa temperatura ng kuwarto"],
+  c_ur: ["صحیح", "غلط", "صرف کمرے کے درجہ حرارت میں"],
+  answer: 0
+},
+{
+  q_ar: "ما هي ملوثات الغذاء الكيمیائية؟",
+  q_en: "What are chemical food contaminants?",
+  q_fil: "Ano ang mga kemikal na kontaminante ng pagkain?",
+  q_ur: "کھانے کی کیمیائی آلودگی کیا ہے؟",
+  c_ar: ["البكتيریا والفيروسات", "مواد مثل المبيدات ومواد التنظيف والمواد الحافظة الزائدة", "قطع الزجاج والمعادن"],
+  c_en: ["Bacteria and viruses", "Substances like pesticides, cleaning products, and excess preservatives", "Glass and metal pieces"],
+  c_fil: ["Mga bacteria at virus", "Mga sangkap tulad ng pestisida, produktong panglinsin, at labis na preservatives", "Mga piyesa ng baso at metal"],
+  c_ur: ["بیکٹیریا اور وائرس", "مادے جیسے کیڑے کو ختم کرنے والے، صفائی کی مصنوعات، اور ضرورت سے زیادہ تحفظ کار", "شیشے اور دھات کے ٹکڑے"],
+  answer: 1
+},
+{
+  q_ar: "الملوثات الفيزیائية دائماً مرئية بالعين المجردة",
+  q_en: "Physical contaminants are always visible to the naked eye",
+  q_fil: "Ang mga pisikal na kontaminante ay palaging nakikita sa hubad na mata",
+  q_ur: "جسمانی آلودگی ہمیشہ ننگی آنکھ سے دیکھی جا سکتی ہے",
+  c_ar: ["صح", "خطأ", "في الغالب نعم"],
+  c_en: ["True", "False", "Usually yes"],
+  c_fil: ["Tama", "Mali", "Karaniwan ay oo"],
+  c_ur: ["صحیح", "غلط", "عام طور پر ہاں"],
+  answer: 1
+},
+{
+  q_ar: "یجب تغطية الغذاء المكشوف قبل رش المبيدات الحشرية",
+  q_en: "Exposed food should be covered before spraying insecticides",
+  q_fil: "Ang napakalat na pagkain ay dapat na takpan bago magpray ng insektisida",
+  q_ur: "کھانے کو اگر کھلا ہو تو کیڑے کے ادویہ کی چھڑکاؤ سے پہلے ڈھانپ دیں",
+  c_ar: ["صح", "خطأ", "فقط إذا كان الرش قريباً"],
+  c_en: ["True", "False", "Only if spraying is nearby"],
+  c_fil: ["Tama", "Mali", "Lamang kung malapit ang pag-spray"],
+  c_ur: ["صحیح", "غلط", "صرف اگر چھڑکاؤ قریب ہو"],
+  answer: 0
+},
+{
+  q_ar: "التلوث الكيمیائي للغذاء یحدث فقط عن طريق الخطأ",
+  q_en: "Chemical contamination of food happens only by accident",
+  q_fil: "Ang kontaminasyon ng kemikal sa pagkain ay nangyayari lamang sa aksidente",
+  q_ur: "کھانے کی کیمیائی آلودگی صرف حادثے سے ہوتی ہے",
+  c_ar: ["صح", "خطأ، قد یحدث بقصد أو بدون قصد", "نادراً"],
+  c_en: ["True", "False, it can happen intentionally or unintentionally", "Rarely"],
+  c_fil: ["Tama", "Mali, maaari itong mangyari sa layunin o hindi layunin", "Bihira"],
+  c_ur: ["صحیح", "غلط، یہ ارادی یا غیر ارادی ہو سکتا ہے", "بہت کم"],
+  answer: 1
+},
+{
+  q_ar: "ما هو الإجراء الصحيح عند ملاحظة تلف في المعدات؟",
+  q_en: "What is the correct procedure when equipment damage is noticed?",
+  q_fil: "Ano ang tamang pamamaraan kapag napansin ang pinsala ng kagamitan?",
+  q_ur: "جب سامان کو نقصان دیکھا جائے تو صحیح طریقہ کیا ہے؟",
+  c_ar: ["محاولة إصلاحها بنفسك", "إبلاغ المشرف فوراً", "الاستمرار في استخدامها حتى نهاية اليوم"],
+  c_en: ["Try to repair it yourself", "Inform the supervisor immediately", "Continue using it until the end of the day"],
+  c_fil: ["Subukan na ayusin ito sa iyong sarili", "Ipaalam sa supervisor kaagad", "Patuloy na gamitin ito hanggang sa dulo ng araw"],
+  c_ur: ["اسے خود ٹھیک کرنے کی کوشش کریں", "فوری طور پر سپروائزر کو بتائیں", "اس دن کے آخر تک اسے استعمال کرتے رہیں"],
+  answer: 1
+},
+{
+  q_ar: "أي من التالي یعتبر من الملوثات الفيزیائية للغذاء؟",
+  q_en: "Which of the following is considered a physical contaminant of food?",
+  q_fil: "Alin sa sumusunod ay itinuturing na pisikal na kontaminante ng pagkain?",
+  q_ur: "مندرجہ ذیل میں سے کون کھانے کی جسمانی آلودگی سمجھی جاتی ہے؟",
+  c_ar: ["البكتيریا", "مواد التنظيف", "قطع الزجاج الصغيرة"],
+  c_en: ["Bacteria", "Cleaning products", "Small glass pieces"],
+  c_fil: ["Bacteria", "Mga produktong panglinsin", "Mga maliit na piraso ng baso"],
+  c_ur: ["بیکٹیریا", "صفائی کی مصنوعات", "شیشے کے چھوٹے ٹکڑے"],
+  answer: 2
+},
+{
+  q_ar: "كيف یجب التعامل مع المواد الكيمیائية في منشأة الغذاء؟",
+  q_en: "How should chemical substances be handled in a food facility?",
+  q_fil: "Paano dapat ang pagtratamento ng mga kemikal na sangkap sa pasilidad ng pagkain?",
+  q_ur: "کھانے کی سہولت میں کیمیائی مادوں کے ساتھ کیسے سلوک کیا جائے؟",
+  c_ar: ["تخزينها مع المواد الغذائية لسهولة الوصول", "نقلها من عبواتها الأصلية إلى عبوات أصغر", "تخزينها في أماكن مخصصة بعيداً عن الغذاء"],
+  c_en: ["Store them with food for easy access", "Transfer them from original containers to smaller containers", "Store them in designated areas away from food"],
+  c_fil: ["I-store ang mga ito kasama ang pagkain para sa madaling pag-access", "Ilipat ang mga ito mula sa mga orihinal na lalagyan sa mas maliit na lalagyan", "I-store ang mga ito sa mga itinalagang lugar malayo sa pagkain"],
+  c_ur: ["انہیں آسان رسائی کے لیے کھانے کے ساتھ ذخیرہ کریں", "انہیں اصل کنٹینرز سے چھوٹے کنٹینرز میں منتقل کریں", "انہیں کھانے سے دور مختص جگہوں میں ذخیرہ کریں"],
+  answer: 2
+},
+{
+  q_ar: "ما هو فساد الغذاء؟",
+  q_en: "What is food spoilage?",
+  q_fil: "Ano ang pagsasama ng pagkain?",
+  q_ur: "کھانے کی خرابی کیا ہے؟",
+  c_ar: ["تغير في لون الغذاء فقط", "عملية تدهور تؤدي إلى تغير اللون والرائحة والملمس والطعم", "إضافة مواد حافظة للغذاء"],
+  c_en: ["Change in food color only", "A deterioration process resulting in changes in color, smell, texture, and taste", "Adding preservatives to food"],
+  c_fil: ["Pagbabago lamang ng kulay ng pagkain", "Isang proseso ng pagbabago na nagreresulta sa pagbabago sa kulay, amoy, struktura, at lasa", "Pagdaragdag ng mga preserver sa pagkain"],
+  c_ur: ["صرف کھانے کے رنگ میں تبدیلی", "ایک تنزلی عمل جس سے رنگ، بو، ساخت اور ذائقے میں تبدیلی آتی ہے", "کھانے میں تحفظ کار شامل کرنا"],
+  answer: 1
+},
+{
+  q_ar: "جمیع أنواع الأغذية تفسد بنفس السرعة",
+  q_en: "All types of food spoil at the same rate",
+  q_fil: "Ang lahat ng uri ng pagkain ay nagsasama sa parehong bilis",
+  q_ur: "تمام اقسام کے کھانے ایک جیسی رفتار سے خراب ہوتے ہیں",
+  c_ar: ["صح", "خطأ", "تقريباً نعم"],
+  c_en: ["True", "False", "Approximately yes"],
+  c_fil: ["Tama", "Mali", "Humigit-kumulang oo"],
+  c_ur: ["صحیح", "غلط", "تقریباً ہاں"],
+  answer: 1
+},
+{
+  q_ar: "الغذاء الفاسد دائماً ما یكون له رائحة كریهة",
+  q_en: "Spoiled food always has a bad smell",
+  q_fil: "Ang masamang pagkain ay palaging may masamang amoy",
+  q_ur: "خراب کھانے میں ہمیشہ بدبو ہوتی ہے",
+  c_ar: ["صح", "خطأ، بعض الغذاء الملوث قد یبدو طبيعياً", "في معظم الحالات"],
+  c_en: ["True", "False, some contaminated food may appear normal", "In most cases"],
+  c_fil: ["Tama", "Mali, ang ilang kontaminadong pagkain ay maaaring lumilitaw na normal", "Sa karamihan ng mga kaso"],
+  c_ur: ["صحیح", "غلط، کچھ آلودہ کھانے عام نظر آ سکتے ہیں", "زیادہ تر معاملات میں"],
+  answer: 1
+},
+{
+  q_ar: "انتفاخ العلب المعدنية قد یكون علامة على فساد الغذاء",
+  q_en: "Swelling of metal cans may be a sign of food spoilage",
+  q_fil: "Ang pag-swell ng mga metal na lata ay maaaring maging senyales ng pagsasama ng pagkain",
+  q_ur: "دھات کے ڈبوں میں پھولاؤ کھانے کی خرابی کی علامت ہو سکتی ہے",
+  c_ar: ["صح", "خطأ", "لا علاقة"],
+  c_en: ["True", "False", "Not related"],
+  c_fil: ["Tama", "Mali", "Hindi kaugnay"],
+  c_ur: ["صحیح", "غلط", "کوئی تعلق نہیں"],
+  answer: 0
+},
+{
+  q_ar: "ما هو الإجراء الصحيح عند ملاحظة علامات فساد على الغذاء عند استلامه؟",
+  q_en: "What is the correct procedure when signs of spoilage are noticed upon receiving food?",
+  q_fil: "Ano ang tamang pamamaraan kapag napansin ang mga senyales ng pagsasama sa pagkuha ng pagkain?",
+  q_ur: "جب کھانے کی وصولی پر خرابی کی علامات دیکھی جائیں تو صحیح طریقہ کیا ہے؟",
+  c_ar: ["قبول الغذاء وتخزينه بعيداً عن الأغذية الأخرى", "رفض استلام الغذاء", "قبول الغذاء واستخدامه بسرعة"],
+  c_en: ["Accept the food and store it away from other foods", "Reject the food", "Accept the food and use it quickly"],
+  c_fil: ["Tanggapin ang pagkain at i-store ito malayo sa iba pang pagkain", "Tanggihan ang pagkain", "Tanggapin ang pagkain at gamitin ito nang mabilis"],
+  c_ur: ["کھانے کو قبول کریں اور اسے دوسری کھانوں سے دور رکھیں", "کھانے کو مسترد کریں", "کھانے کو قبول کریں اور اسے جلدی استعمال کریں"],
+  answer: 1
+},
+{
+  q_ar: "ما هي إحدى علامات فساد اللحوم؟",
+  q_en: "What is one sign of meat spoilage?",
+  q_fil: "Ano ang isa sa mga senyales ng pagsasama ng karne?",
+  q_ur: "گوشت کی خرابی کی ایک علامت کیا ہے؟",
+  c_ar: ["زيادة في الحجم", "تغير اللون إلى الرمادي أو الأخضر", "ظهور بقع بيضاء"],
+  c_en: ["Increase in size", "Change in color to gray or green", "Appearance of white spots"],
+  c_fil: ["Pagtaas sa laki", "Pagbabago ng kulay sa grayish o luntian", "Paglitaw ng puting puwesto"],
+  c_ur: ["سائز میں اضافہ", "رنگ میں گھبراہٹ یا ہری رنگ میں تبدیلی", "سفید داغوں کا ظہور"],
+  answer: 1
+},
+{
+  q_ar: "الأطفال تحت سن 5 سنوات من الفئات الأكثر عرضة للإصابة بالتسمم الغذائي",
+  q_en: "Children under 5 years are among the most vulnerable to foodborne illness",
+  q_fil: "Ang mga bata sa ilalim ng 5 taon ay ilan sa pinakamarupok sa sakit na puno ng pagkain",
+  q_ur: "5 سال سے کم عمر کے بچے کھانے سے ہونے والی بیماری کا شکار ہونے کے لیے سب سے زیادہ حساس ہیں",
+  c_ar: ["صح", "خطأ", "فقط الرضع"],
+  c_en: ["True", "False", "Only infants"],
+  c_fil: ["Tama", "Mali", "Lamang ang mga sanggol"],
+  c_ur: ["صحیح", "غلط", "صرف شیرخواران"],
+  answer: 0
+},
+{
+  q_ar: "البكتيریا المسببة للتسمم الغذائي موجودة فقط في الأغذية النيئة",
+  q_en: "Bacteria causing foodborne illness are found only in raw foods",
+  q_fil: "Ang mga bacteria na nagsisigna ng sakit na dulot ng pagkain ay makikita lamang sa mga hilaw na pagkain",
+  q_ur: "کھانے سے ہونے والی بیماری کے باعث بیکٹیریا صرف کچے کھانے میں ہوتے ہیں",
+  c_ar: ["صح", "خطأ", "في معظم الحالات"],
+  c_en: ["True", "False", "In most cases"],
+  c_fil: ["Tama", "Mali", "Sa karamihan ng mga kaso"],
+  c_ur: ["صحیح", "غلط", "اکثر حالات میں"],
+  answer: 1
+},
+{
+  q_ar: "أي من الأغذية التالية یعتبر من أكثر الأغذية المسببة للحساسية؟",
+  q_en: "Which of the following foods is considered one of the most allergenic foods?",
+  q_fil: "Alin sa sumusunod na mga pagkain ay itinuturing na isa sa pinakaallergenic na pagkain?",
+  q_ur: "مندرجہ ذیل میں سے کون سا کھانا سب سے زیادہ الرجی پیدا کرنے والے کھانوں میں سے ایک سمجھا جاتا ہے؟",
+  c_ar: ["التفاح", "البطاطس", "الفول السوداني"],
+  c_en: ["Apple", "Potato", "Peanut"],
+  c_fil: ["Mansanas", "Patatas", "Peanut"],
+  c_ur: ["سیب", "آلو", "مونگ پھلی"],
+  answer: 2
+},
+{
+  q_ar: "ما هي درجة الحرارة المناسبة لحفظ الغذاء الساخن لمنع نمو البكتيریا؟",
+  q_en: "What is the appropriate temperature to keep hot food to prevent bacterial growth?",
+  q_fil: "Ano ang angkop na temperatura upang panatilihin ang mainit na pagkain upang maiwasan ang paglaki ng bakterya?",
+  q_ur: "بیکٹیریا کی نمو سے بچنے کے لیے گرم کھانے کو رکھنے کا موزوں درجہ حرارت کیا ہے؟",
+  c_ar: ["37°م أو أعلى", "50°م أو أعلى", "63°م أو أعلى"],
+  c_en: ["37°C or above", "50°C or above", "63°C or above"],
+  c_fil: ["37°C o mas mataas", "50°C o mas mataas", "63°C o mas mataas"],
+  c_ur: ["37°C یا اس سے اوپر", "50°C یا اس سے اوپر", "63°C یا اس سے اوپر"],
+  answer: 2
+},
+{
+  q_ar: "ماذا یجب أن تفعل إذا لاحظت انتفاخاً في علبة معدنية للغذاء؟",
+  q_en: "What should you do if you notice swelling in a metal food can?",
+  q_fil: "Ano ang dapat mong gawin kung makita mo ang pag-swell sa isang metal na lata ng pagkain?",
+  q_ur: "اگر آپ کو دھات کے کھانے کے ڈبے میں پھولاؤ دکھائی دے تو کیا کریں؟",
+  c_ar: ["فتحها للتأكد من سلامة محتواها", "عدم استخدامها وإبلاغ المشرف فوراً", "وضعها في الثلاجة لتقليل الانتفاخ"],
+  c_en: ["Open it to verify the contents are safe", "Do not use it and inform the supervisor immediately", "Put it in the refrigerator to reduce swelling"],
+  c_fil: ["Buksan ito upang i-verify na ligtas ang mga nilalaman", "Huwag gamitin ito at ipaalam sa supervisor kaagad", "Ilagay ito sa refrigerator upang mabawasan ang pag-swell"],
+  c_ur: ["یہ جانچنے کے لیے کھولیں کہ اس کا مواد محفوظ ہے", "اسے استعمال نہ کریں اور فوری طور پر سپروائزر کو بتائیں", "پھولاؤ کو کم کرنے کے لیے اسے فریج میں ڈالیں"],
+  answer: 1
+},
+{
+  q_ar: "یمكن ارتداء الحلي والساعات أثناء العمل في مجال الغذاء",
+  q_en: "Jewelry and watches can be worn while working with food",
+  q_fil: "Ang alahas at relo ay maaaring isuot habang nagtatrabaho sa pagkain",
+  q_ur: "کھانے کے ساتھ کام کرتے وقت زیورات اور گھڑیاں پہنی جا سکتی ہیں",
+  c_ar: ["صح", "خطأ", "الساعات فقط مسموحة"],
+  c_en: ["True", "False", "Watches only are allowed"],
+  c_fil: ["Tama", "Mali", "Relo lamang ang inaasahang"],
+  c_ur: ["صحیح", "غلط", "صرف گھڑی کی اجازت ہے"],
+  answer: 1
+},
+{
+  q_ar: "یجب غسل اليدین قبل ارتداء القفازات وبعد تغييرها",
+  q_en: "Hands should be washed before putting on gloves and after changing them",
+  q_fil: "Ang mga kamay ay dapat hugasan bago magsuot ng mga glove at pagkatapos baguhin ang mga ito",
+  q_ur: "دستانے پہننے سے پہلے اور انہیں تبدیل کرنے کے بعد ہاتھ دھوئے جائیں",
+  c_ar: ["صح", "خطأ", "قبل الارتداء فقط"],
+  c_en: ["True", "False", "Before wearing only"],
+  c_fil: ["Tama", "Mali", "Bago lamang magsuot"],
+  c_ur: ["صحیح", "غلط", "صرف پہننے سے پہلے"],
+  answer: 0
+},
+{
+  q_ar: "یمكن استخدام حوض غسل اليدین لغسل الأدوات والغذاء",
+  q_en: "Hand washing sink can be used to wash utensils and food",
+  q_fil: "Ang washbasin ng kamay ay maaaring gamitin upang hugasan ang mga kasangkapan at pagkain",
+  q_ur: "ہاتھ دھونے کے سنک کو برتنوں اور کھانے کو دھونے کے لیے استعمال کیا جا سکتا ہے",
+  c_ar: ["صح", "خطأ", "في حالات الطوارئ فقط"],
+  c_en: ["True", "False", "Only in emergencies"],
+  c_fil: ["Tama", "Mali", "Lamang sa mga emergency"],
+  c_ur: ["صحیح", "غلط", "صرف ایمرجنسی میں"],
+  answer: 1
+},
+{
+  q_ar: "ما هي المدة المناسبة لغسل اليدین؟",
+  q_en: "What is the appropriate duration for washing hands?",
+  q_fil: "Ano ang angkop na tagal para hugasan ang mga kamay?",
+  q_ur: "ہاتھ دھونے کا موزوں وقت کتنا ہے؟",
+  c_ar: ["5 ثوانٍ", "10 ثوانٍ", "20 ثانية على الأقل"],
+  c_en: ["5 seconds", "10 seconds", "At least 20 seconds"],
+  c_fil: ["5 segundo", "10 segundo", "Kahit 20 segundo"],
+  c_ur: ["5 سیکنڈ", "10 سیکنڈ", "کم از کم 20 سیکنڈ"],
+  answer: 2
+},
+{
+  q_ar: "ماذا یجب أن تفعل إذا شعرت بالحاجة للعطس أثناء التعامل مع الغذاء؟",
+  q_en: "What should you do if you feel the need to sneeze while handling food?",
+  q_fil: "Ano ang dapat mong gawin kung pakiramdam mo ang pangangailangan na magbahing habang hinahawakan ang pagkain?",
+  q_ur: "اگر آپ کو کھانے کو سنبھالتے وقت چھینکنے کی ضرورت محسوس ہو تو کیا کریں؟",
+  c_ar: ["العطس مباشرة على الغذاء", "الابتعاد عن الغذاء وتغطية الفم بالذراع", "العطس في يديك ثم مواصلة العمل"],
+  c_en: ["Sneeze directly on the food", "Move away from the food and cover your mouth with your arm", "Sneeze in your hands then continue working"],
+  c_fil: ["Magbahin nang direkta sa pagkain", "Lumayo mula sa pagkain at takpan ang iyong bibig ng iyong braso", "Bahin sa iyong mga kamay pagkatapos magpatuloy sa trabaho"],
+  c_ur: ["براہ راست کھانے پر چھینکیں", "کھانے سے دور ہوں اور اپنے منہ کو بازو سے ڈھکیں", "اپنے ہاتھوں میں چھینکیں پھر کام جاری رکھیں"],
+  answer: 1
+},
+{
+  q_ar: "ما هو اللون المفضل للضمادات المستخدمة لتغطية الجروح في مناطق تحضير الغذاء؟",
+  q_en: "What is the preferred color of bandages used to cover wounds in food preparation areas?",
+  q_fil: "Ano ang piniling kulay ng mga bandage na ginagamit upang supilin ang mga sugat sa mga lugar ng paghahanda ng pagkain?",
+  q_ur: "کھانے کی تیاری کی جگہوں میں زخموں کو ڈھکنے کے لیے استعمال ہونے والے پٹی کا پسندیدہ رنگ کیا ہے؟",
+  c_ar: ["الشفاف", "الأبيض", "الأزرق"],
+  c_en: ["Transparent", "White", "Blue"],
+  c_fil: ["Transparent", "Puti", "Asul"],
+  c_ur: ["شفاف", "سفید", "نیلا"],
+  answer: 2
+},
+{
+  q_ar: "التنظيف والتطهير هما نفس الشيء",
+  q_en: "Cleaning and disinfection are the same thing",
+  q_fil: "Ang paglilinis at disinfection ay parehong bagay",
+  q_ur: "صفائی اور جراثیم کو ختم کرنا ایک جیسی چیز ہیں",
+  c_ar: ["صح", "خطأ", "تقريباً"],
+  c_en: ["True", "False", "Approximately"],
+  c_fil: ["Tama", "Mali", "Halos"],
+  c_ur: ["صحیح", "غلط", "تقریباً"],
+  answer: 1
+},
+{
+  q_ar: "النفایات لا تشكل خطراً على سلامة الغذاء",
+  q_en: "Waste does not pose a risk to food safety",
+  q_fil: "Ang basura ay hindi bumubuo ng peligro sa kaligtasan ng pagkain",
+  q_ur: "فضلہ کھانے کی حفاظت کے لیے خطرہ نہیں ہے",
+  c_ar: ["صح", "خطأ", "إذا كانت بعيدة عن الغذاء"],
+  c_en: ["True", "False", "If it is far from food"],
+  c_fil: ["Tama", "Mali", "Kung ito ay malayo sa pagkain"],
+  c_ur: ["صحیح", "غلط", "اگر یہ کھانے سے دور ہو"],
+  answer: 1
+},
+{
+  q_ar: "وجود روائح غریبة في المنشأة قد یكون علامة على وجود آفات",
+  q_en: "Unusual odors in the facility may be a sign of pest presence",
+  q_fil: "Ang kakaibang amoy sa pasilidad ay maaaring maging senyales ng pagkakaroon ng mga peste",
+  q_ur: "سہولت میں عجیب بو کھٹملے کی موجودگی کی علامت ہو سکتی ہے",
+  c_ar: ["صح", "خطأ", "لا علاقة"],
+  c_en: ["True", "False", "Not related"],
+  c_fil: ["Tama", "Mali", "Hindi kaugnay"],
+  c_ur: ["صحیح", "غلط", "کوئی تعلق نہیں"],
+  answer: 0
+},
+{
+  q_ar: "ما هي درجة حرارة الماء المناسبة للتنظيف الرئيسي؟",
+  q_en: "What is the appropriate water temperature for main cleaning?",
+  q_fil: "Ano ang angkop na temperatura ng tubig para sa pangunahing paglilinis?",
+  q_ur: "بنیادی صفائی کے لیے پانی کا موزوں درجہ حرارت کیا ہے؟",
+  c_ar: ["25°م", "50°م", "63°م"],
+  c_en: ["25°C", "50°C", "63°C"],
+  c_fil: ["25°C", "50°C", "63°C"],
+  c_ur: ["25°C", "50°C", "63°C"],
+  answer: 1
+},
+{
+  q_ar: "أي من التالي لیس من خصائص حاويات النفایات المثالية؟",
+  q_en: "Which of the following is not a characteristic of ideal waste containers?",
+  q_fil: "Alin sa sumusunod ay hindi isang katangian ng ideal na mga lalagyan ng basura?",
+  q_ur: "مندرجہ ذیل میں سے کون سا نہیں ہے بہترین فضلے کے کنٹینرز کی خصوصیت؟",
+  c_ar: ["تفتح باليد", "مقاومة للآفات", "مزودة بغطاء محكم"],
+  c_en: ["Open by hand", "Pest resistant", "Equipped with a tight lid"],
+  c_fil: ["Magbukas ng kamay", "Resistant sa mga peste", "Equipped na may mahigpit na takip"],
+  c_ur: ["ہاتھ سے کھولیں", "کھٹملے سے مزاحم", "سخت ڈھکن سے لیس"],
+  answer: 0
+},
+{
+  q_ar: "ماذا یجب أن تفعل إذا لاحظت علامات وجود آفات في منشأة الغذاء؟",
+  q_en: "What should you do if you notice signs of pest presence in a food facility?",
+  q_fil: "Ano ang dapat mong gawin kung napansin mo ang mga senyales ng pagkakaroon ng mga peste sa pasilidad ng pagkain?",
+  q_ur: "اگر آپ کو کھانے کی سہولت میں کھٹملے کی موجودگی کی علامات دیکھیں تو کیا کریں؟",
+  c_ar: ["تجاهل الأمر إذا كانت الآفات قليلة", "إبلاغ المشرف فوراً", "محاولة مكافحة الآفات بنفسك"],
+  c_en: ["Ignore it if there are few pests", "Inform the supervisor immediately", "Try to control pests yourself"],
+  c_fil: ["Balewalain ito kung iilan lamang ang mga peste", "Ipaalam sa supervisor kaagad", "Subukan na kontrolin ang mga peste sa iyong sarili"],
+  c_ur: ["اگر کھٹملے کم ہوں تو نظر انداز کریں", "فوری طور پر سپروائزر کو بتائیں", "اپنے آپ کھٹملوں کو کنٹرول کرنے کی کوشش کریں"],
+  answer: 1
+},
+{
+  q_ar: "الاشتراطات العامة لمنشآت الغذاء تشمل فقط تصميم المباني ولا تهتم بجودة الأدوات والمعدات",
+  q_en: "General requirements for food facilities include only building design and do not care about tool and equipment quality",
+  q_fil: "Ang mga pangkalahatang pangangailangan para sa mga pasilidad ng pagkain ay kasama lamang ang disenyo ng gusali at hindi inaalala ang kalidad ng tool at kagamitan",
+  q_ur: "کھانے کی سہولیات کے عمومی تقاضے میں صرف عمارت کی ڈیزائن شامل ہے اور آلات اور سامان کے معیار کی پروا نہیں ہے",
+  c_ar: ["صح", "خطأ", "حسب نوع المنشأة"],
+  c_en: ["True", "False", "Depending on the type of facility"],
+  c_fil: ["Tama", "Mali", "Depende sa uri ng pasilidad"],
+  c_ur: ["صحیح", "غلط", "سہولت کی قسم پر منحصر"],
+  answer: 1
+},
+{
+  q_ar: "یجب أن تكون الأرضيات والجدران والأسقف في منشآت الغذاء مقاومة للماء وسهلة التنظيف",
+  q_en: "Floors, walls, and ceilings in food facilities should be waterproof and easy to clean",
+  q_fil: "Ang mga palapag, pader, at kisame sa mga pasilidad ng pagkain ay dapat na maaasahang tubig at madaling likhain",
+  q_ur: "کھانے کی سہولیات میں فرش، دیواریں اور چھتیں پانی سے مزاحم اور صاف کرنے میں آسان ہونی چاہیے",
+  c_ar: ["صح", "خطأ", "الأرضيات فقط"],
+  c_en: ["True", "False", "Floors only"],
+  c_fil: ["Tama", "Mali", "Palapag lamang"],
+  c_ur: ["صحیح", "غلط", "صرف فرش"],
+  answer: 0
+},
+{
+  q_ar: "من الممكن استخدام نفس الحوض لغسل الخضروات وغسل الأواني",
+  q_en: "It is possible to use the same sink for washing vegetables and washing dishes",
+  q_fil: "Posible na gamitin ang parehong labangan para hugasan ang mga gulay at hugasan ang mga putahe",
+  q_ur: "سبزیوں اور برتنوں کو دھونے کے لیے ایک جیسے سنک کا استعمال ممکن ہے",
+  c_ar: ["صح", "خطأ، يجب فحصها على طاولة نظيفة", "إذا تم تنظيفه بينهما"],
+  c_en: ["True", "False, they should be examined on a clean table", "If it is cleaned between them"],
+  c_fil: ["Tama", "Mali, dapat sila suriin sa isang malinis na mesa", "Kung ito ay nilinis sa pagitan ng mga ito"],
+  c_ur: ["صحیح", "غلط، انہیں صاف میز پر دیکھا جائے", "اگر یہ ان کے درمیان صاف کیا جائے"],
+  answer: 1
+},
+{
+  q_ar: "ما الهدف الرئيسي من الفصل بين المناطق النظيفة وغير النظيفة في منشآت الغذاء؟",
+  q_en: "What is the main objective of separating clean and unclean areas in food facilities?",
+  q_fil: "Ano ang pangunahing layunin ng paghihiwalay ng mga malinis at maruruming lugar sa mga pasilidad ng pagkain?",
+  q_ur: "کھانے کی سہولیات میں صاف اور غیر صاف علاقوں کو الگ کرنے کا بنیادی مقصد کیا ہے؟",
+  c_ar: ["توفير مساحة أكبر للعمل", "منع انتقال التلوث بين المناطق المختلفة", "تسهيل عملية التنظيف فقط"],
+  c_en: ["Providing more workspace", "Preventing contamination transfer between different areas", "Facilitating the cleaning process only"],
+  c_fil: ["Pagbibigay ng mas malaking workspace", "Pagsisirang ng paghahatid ng kontaminasyon sa iba't ibang lugar", "Pagpapahusay ng proseso ng paglilinis lamang"],
+  c_ur: ["زیادہ کام کی جگہ فراہم کرنا", "مختلف علاقوں میں آلودگی کی منتقلی کو روکنا", "صرف صفائی کے عمل کو سہل بنانا"],
+  answer: 1
+},
+{
+  q_ar: "لماذا یجب أن تكون الأدوات والمعدات في منشآت الغذاء مصنوعة من مواد معينة؟",
+  q_en: "Why should tools and equipment in food facilities be made of specific materials?",
+  q_fil: "Bakit dapat na ang mga tool at kagamitan sa mga pasilidad ng pagkain ay gawa sa partikular na materyales?",
+  q_ur: "کھانے کی سہولیات میں آلات اور سامان کو مخصوص مادوں سے کیوں بنایا جانا چاہیے؟",
+  c_ar: ["لتكون أرخص ثمناً", "لتكون أثقل وزناً وأكثر ثباتاً", "لتكون آمنة وسهلة التنظيف"],
+  c_en: ["To be cheaper", "To be heavier and more stable", "To be safe and easy to clean"],
+  c_fil: ["Maging mas mura", "Maging mas mabigat at mas matatag", "Maging ligtas at madaling likhain"],
+  c_ur: ["سستے ہونے کے لیے", "زیادہ بھاری اور زیادہ مستحکم ہونے کے لیے", "محفوظ اور صاف کرنے میں آسان ہونے کے لیے"],
+  answer: 2
+},
+{
+  q_ar: "ما هو الإجراء الصحيح عند ملاحظة مصباح معطل في منطقة إعداد الغذاء؟",
+  q_en: "What is the correct procedure when a broken light bulb is noticed in a food preparation area?",
+  q_fil: "Ano ang tamang pamamaraan kapag napansin ang isang masira na bombilya sa isang lugar ng paghahanda ng pagkain?",
+  q_ur: "کھانے کی تیاری کی جگہ میں ٹوٹے ہوئے بلب کو دیکھتے ہوئے صحیح طریقہ کیا ہے؟",
+  c_ar: ["تجاهل الأمر طالما هناك إضاءة كافية من مصادر أخرى", "محاولة إصلاح المصباح بنفسك", "الإبلاغ فوراً عن المصباح المعطل للمشرف"],
+  c_en: ["Ignore it as long as there is enough light from other sources", "Try to repair the bulb yourself", "Report the broken bulb to the supervisor immediately"],
+  c_fil: ["Balewalain ito hangga't may sapat na liwanag mula sa iba pang mapagkukunan", "Subukan na ayusin ang bombilya sa iyong sarili", "Iulat kaagad ang sirang bombilya sa supervisor"],
+  c_ur: ["اگر دوسری جگہوں سے کافی روشنی ہے تو نظر انداز کریں", "بلب کو خود ٹھیک کرنے کی کوشش کریں", "فوری طور پر ٹوٹے ہوئے بلب کی سپروائزر کو اطلاع دیں"],
+  answer: 2
+},
+{
+  q_ar: "ما هو نظام الهاسب (HACCP)؟",
+  q_en: "What is the HACCP system?",
+  q_fil: "Ano ang HACCP system?",
+  q_ur: "HACCP نظام کیا ہے؟",
+  c_ar: ["نظام لتنظيف المعدات", "نظام تحليل المخاطر ونقاط التحكم الحرجة لإدارة سلامة الغذاء", "نظام لتدريب العاملين فقط"],
+  c_en: ["System for cleaning equipment", "Hazard Analysis and Critical Control Points system for food safety management", "System for training workers only"],
+  c_fil: ["Sistema para sa paglilinis ng kagamitan", "Hazard Analysis at Critical Control Points system para sa food safety management", "Sistema para sa pagsasanay ng mga manggagawa lamang"],
+  c_ur: ["سامان کو صاف کرنے کا نظام", "خطرات کے تجزیے اور کھانے کی حفاظت کے انتظام کے لیے اہم کنٹرول پوائنٹس کا نظام", "صرف کارکنان کی تربیت کا نظام"],
+  answer: 1
+},
+{
+  q_ar: "إدارة سلامة الغذاء تهتم فقط بمرحلة التحضير والتقديم في المنشأة الغذائية",
+  q_en: "Food safety management only cares about the preparation and serving phase in the food facility",
+  q_fil: "Ang food safety management ay nag-aalaga lamang sa paghahanda at paglilingkod na yugto sa pasilidad ng pagkain",
+  q_ur: "کھانے کی حفاظت کا انتظام کھانے کی سہولت میں صرف تیاری اور سرونگ کے مرحلے کی پروا کرتا ہے",
+  c_ar: ["صح", "خطأ", "في المطاعم الكبيرة فقط"],
+  c_en: ["True", "False", "In large restaurants only"],
+  c_fil: ["Tama", "Mali", "Sa malalaking restaurant lamang"],
+  c_ur: ["صحیح", "غلط", "صرف بڑی ریستران میں"],
+  answer: 1
+},
+{
+  q_ar: "نظام الهاسب (HACCP) یركز على معالجة المشاكل بعد حدوثها",
+  q_en: "HACCP system focuses on addressing problems after they occur",
+  q_fil: "Ang HACCP system ay nakatuon sa paglutas ng mga problema pagkatapos na mangyari",
+  q_ur: "HACCP نظام مسائل کے ہونے کے بعد انہیں حل کرنے پر توجہ دیتا ہے",
+  c_ar: ["صح", "خطأ، يركز على الوقاية", "أحياناً"],
+  c_en: ["True", "False, it focuses on prevention", "Sometimes"],
+  c_fil: ["Tama", "Mali, nakatuon ito sa pagpapabuti", "Kung minsan"],
+  c_ur: ["صحیح", "غلط، یہ روک تھام پر توجہ دیتا ہے", "کبھی کبھی"],
+  answer: 1
+},
+{
+  q_ar: "ما هي الخطوة الأولى في عملية تطبيق نظام الهاسب؟",
+  q_en: "What is the first step in implementing the HACCP system?",
+  q_fil: "Ano ang unang hakbang sa pagpapatupad ng HACCP system?",
+  q_ur: "HACCP نظام کو لاگو کرنے میں پہلا قدم کیا ہے؟",
+  c_ar: ["إجراء تحليل المخاطر", "تشكيل فريق الهاسب", "تحديد نقاط التحكم الحرجة"],
+  c_en: ["Conduct hazard analysis", "Form the HACCP team", "Identify critical control points"],
+  c_fil: ["Magsagawa ng hazard analysis", "Bumuo ng HACCP team", "Tukuyin ang mga kritikal na control point"],
+  c_ur: ["خطرات کا تجزیہ کریں", "HACCP ٹیم تشکیل دیں", "اہم کنٹرول پوائنٹس کی نشاندہی کریں"],
+  answer: 1
+},
+{
+  q_ar: "ما هو الهدف الرئيسي من إنشاء نظام للتوثيق وحفظ السجلات في نظام الهاسب؟",
+  q_en: "What is the main objective of creating a documentation and record-keeping system in HACCP?",
+  q_fil: "Ano ang pangunahing layunin ng paglikha ng dokumentasyon at record-keeping system sa HACCP?",
+  q_ur: "HACCP میں دستاویزات اور ریکارڈ رکھنے کا نظام بنانے کا بنیادی مقصد کیا ہے؟",
+  c_ar: ["زيادة الأعباء الإدارية على العاملين", "إثبات تطبيق وصيانة نظام الهاسب", "تحسين العلاقات مع الموردين"],
+  c_en: ["Increasing administrative burden on workers", "Proving HACCP system implementation and maintenance", "Improving relationships with suppliers"],
+  c_fil: ["Pagtaas ng pangangailangan sa administrasyon sa mga manggagawa", "Patunayan ang pagpapatupad at pagpapanatili ng HACCP system", "Pagpapabuti ng relasyon sa mga supplier"],
+  c_ur: ["کارکنان پر انتظامی بوجھ میں اضافہ", "HACCP نظام کی نفاذ اور دیکھ بھال کو ثابت کرنا", "سپلائرز کے ساتھ تعلقات میں بہتری"],
+  answer: 1
+},
+{
+  q_ar: "یجب تخزين الغذاء المبرد في درجة حرارة 5°م أو أقل",
+  q_en: "Refrigerated food should be stored at 5°C or below",
+  q_fil: "Ang refrigerated na pagkain ay dapat na i-store sa 5°C o mas mababa",
+  q_ur: "ٹھنڈا رکھا ہوا کھانا 5°C یا اس سے کم درجہ حرارت میں ذخیرہ کیا جانا چاہیے",
+  c_ar: ["صح", "خطأ", "8°م أو أقل"],
+  c_en: ["True", "False", "8°C or below"],
+  c_fil: ["Tama", "Mali", "8°C o mas mababa"],
+  c_ur: ["صحیح", "غلط", "8°C یا اس سے کم"],
+  answer: 0
+},
+{
+  q_ar: "یمكن إعادة تسخين الغذاء لدرجة حرارة 60°م فقط",
+  q_en: "Food can be reheated to only 60°C",
+  q_fil: "Ang pagkain ay maaaring i-reheat sa lamang 60°C",
+  q_ur: "کھانے کو صرف 60°C تک دوبارہ گرم کیا جا سکتا ہے",
+  c_ar: ["صح", "خطأ، يجب إعادة تسخينه لـ 82°م أو أعلى", "حسب نوع الغذاء"],
+  c_en: ["True", "False, it should be reheated to 82°C or above", "Depending on food type"],
+  c_fil: ["Tama", "Mali, dapat itong i-reheat sa 82°C o mas mataas", "Depende sa uri ng pagkain"],
+  c_ur: ["صحیح", "غلط، اسے 82°C یا اس سے اوپر دوبارہ گرم کیا جائے", "کھانے کی قسم پر منحصر"],
+  answer: 1
+},
+{
+  q_ar: "من الضروري فصل الأغذية النيئة عن الأغذية الجاهزة للأكل أثناء التحضير",
+  q_en: "It is necessary to separate raw foods from ready-to-eat foods during preparation",
+  q_fil: "Ito ay kinakailangan na paghiwalayin ang mga hilaw na pagkain mula sa handang kainin na mga pagkain sa panahon ng paghahanda",
+  q_ur: "تیاری کے دوران کچے کھانے کو کھانے کے لیے تیار کھانوں سے الگ کرنا ضروری ہے",
+  c_ar: ["صح", "خطأ", "فقط مع اللحوم"],
+  c_en: ["True", "False", "Only with meat"],
+  c_fil: ["Tama", "Mali", "Lamang sa karne"],
+  c_ur: ["صحیح", "غلط", "صرف گوشت کے ساتھ"],
+  answer: 0
+},
+{
+  q_ar: "ما هي درجة الحرارة الداخلية المناسبة لطهي الغذاء بشكل آمن؟",
+  q_en: "What is the appropriate internal temperature for safe food cooking?",
+  q_fil: "Ano ang angkop na panloob na temperatura para sa ligtas na pagluluto ng pagkain?",
+  q_ur: "محفوظ کھانے کے پکانے کے لیے موزوں اندرونی درجہ حرارت کیا ہے؟",
+  c_ar: ["50°م", "63°م", "75°م"],
+  c_en: ["50°C", "63°C", "75°C"],
+  c_fil: ["50°C", "63°C", "75°C"],
+  c_ur: ["50°C", "63°C", "75°C"],
+  answer: 2
+},
+{
+  q_ar: "كم من الوقت یجب أن یستغرق تبريد الغذاء الساخن؟",
+  q_en: "How long should it take to cool hot food?",
+  q_fil: "Gaano katagal dapat gawin upang palamtigin ang mainit na pagkain?",
+  q_ur: "گرم کھانے کو ٹھنڈا کرنے میں کتنا وقت لگنا چاہیے؟",
+  c_ar: ["خلال ساعة واحدة", "خلال ساعة ونصف", "خلال ساعتين"],
+  c_en: ["Within one hour", "Within one and a half hours", "Within two hours"],
+  c_fil: ["Sa loob ng isang oras", "Sa loob ng isa at kalahating oras", "Sa loob ng dalawang oras"],
+  c_ur: ["ایک گھنٹے میں", "ڈیڑھ گھنٹے میں", "دو گھنٹے میں"],
+  answer: 1
+},
+{
+  q_ar: "عند عرض الغذاء الساخن، ما هي درجة الحرارة المناسبة؟",
+  q_en: "When displaying hot food, what is the appropriate temperature?",
+  q_fil: "Kapag nagpapakita ng mainit na pagkain, ano ang angkop na temperatura?",
+  q_ur: "گرم کھانے کو ظاہر کرتے وقت، موزوں درجہ حرارت کیا ہے؟",
+  c_ar: ["55°م أو أعلى", "60°م أو أعلى", "63°م أو أعلى"],
+  c_en: ["55°C or above", "60°C or above", "63°C or above"],
+  c_fil: ["55°C o mas mataas", "60°C o mas mataas", "63°C o mas mataas"],
+  c_ur: ["55°C یا اس سے اوپر", "60°C یا اس سے اوپر", "63°C یا اس سے اوپر"],
+  answer: 2
+},
+{
+  q_ar: "ما هي درجة حرارة نقل الغذاء المجمد؟",
+  q_en: "What is the temperature for transporting frozen food?",
+  q_fil: "Ano ang temperatura para sa pagdadala ng na-freeze na pagkain?",
+  q_ur: "منجمد کھانے کی نقل کے لیے درجہ حرارت کیا ہے؟",
+  c_ar: ["-5°م أو أقل", "-18°م أو أقل", "-10°م أو أقل"],
+  c_en: ["-5°C or below", "-18°C or below", "-10°C or below"],
+  c_fil: ["-5°C o mas mababa", "-18°C o mas mababa", "-10°C o mas mababa"],
+  c_ur: ["-5°C یا اس سے کم", "-18°C یا اس سے کم", "-10°C یا اس سے کم"],
+  answer: 1
+},
+{
+  q_ar: "ما هو مبدأ FIFO في إدارة المخزون؟",
+  q_en: "What is the FIFO principle in inventory management?",
+  q_fil: "Ano ang FIFO na prinsipyo sa pangangalaga ng inventory?",
+  q_ur: "انوینٹری کے انتظام میں FIFO اصول کیا ہے؟",
+  c_ar: ["الوارد أخيراً يصرف أولاً", "الوارد أولاً يصرف أولاً", "الأغلى ثمناً يصرف أولاً"],
+  c_en: ["Last in first out", "First in first out", "Most expensive first"],
+  c_fil: ["Huling papasok na unang lalabas", "Unang papasok na unang lalabas", "Pinakamahal na unang lalabas"],
+  c_ur: ["آخری میں داخل ہونے والا پہلے نکالا جائے", "پہلے میں داخل ہونے والا پہلے نکالا جائے", "سب سے مہنگا پہلے نکالا جائے"],
+  answer: 1
+},
+{
+  q_ar: "ما هي درجة حرارة تخزين الغذاء الجاف المناسبة؟",
+  q_en: "What is the appropriate storage temperature for dry food?",
+  q_fil: "Ano ang angkop na temperatura ng pagsisigil para sa tuyong pagkain?",
+  q_ur: "خشک کھانے کو ذخیرہ کرنے کے لیے موزوں درجہ حرارت کیا ہے؟",
+  c_ar: ["لا تزيد عن 25°م", "لا تزيد عن 35°م", "لا تزيد عن 15°م"],
+  c_en: ["Not exceeding 25°C", "Not exceeding 35°C", "Not exceeding 15°C"],
+  c_fil: ["Hindi lumalampas sa 25°C", "Hindi lumalampas sa 35°C", "Hindi lumalampas sa 15°C"],
+  c_ur: ["25°C سے زیادہ نہیں", "35°C سے زیادہ نہیں", "15°C سے زیادہ نہیں"],
+  answer: 0
+},
+{
+  q_ar: "عند استلام الأغذية یجب فحصها على الأرض مباشرة",
+  q_en: "When receiving food, it should be inspected directly on the floor",
+  q_fil: "Kapag tumanggap ng pagkain, ito ay dapat suriin nang direkta sa sahig",
+  q_ur: "کھانے کی وصولی پر اسے براہ راست فرش پر جانچا جائے",
+  c_ar: ["صح", "خطأ، يجب فحصها على طاولة نظيفة", "حسب نوع الغذاء"],
+  c_en: ["True", "False, it should be inspected on a clean table", "Depending on food type"],
+  c_fil: ["Tama", "Mali, dapat itong suriin sa isang malinis na mesa", "Depende sa uri ng pagkain"],
+  c_ur: ["صحیح", "غلط، اسے صاف میز پر جانچا جائے", "کھانے کی قسم پر منحصر"],
+  answer: 1
+},
+{
+  q_ar: "ما هو الغرض من التطهير؟",
+  q_en: "What is the purpose of disinfection?",
+  q_fil: "Ano ang layunin ng disinfection?",
+  q_ur: "جراثیم کو ختم کرنے کا مقصد کیا ہے؟",
+  c_ar: ["إزالة بقايا الغذاء والأوساخ المرئية", "قتل البكتيریا والفيروسات بعد التنظيف", "تجفيف الأسطح بعد الغسيل"],
+  c_en: ["Removing visible food debris and dirt", "Killing bacteria and viruses after cleaning", "Drying surfaces after washing"],
+  c_fil: ["Pagsisiguro ng nakikitang natitirang pagkain at alikabok", "Pagpapatapos ng bacteria at virus pagkatapos ng paglilinis", "Pagpatuyo ng mga ibabaw pagkatapos ng paghuhugas"],
+  c_ur: ["نظر آنے والے کھانے کی باقیمانده اور گندگی کو ہٹانا", "صفائی کے بعد بیکٹیریا اور وائرس کو مار دینا", "دھونے کے بعد سطحوں کو خشک کرنا"],
+  answer: 1
+},
+{
+  q_ar: "ما هي درجة حرارة الماء الساخن المستخدمة للتطهير؟",
+  q_en: "What is the temperature of hot water used for disinfection?",
+  q_fil: "Ano ang temperatura ng mainit na tubig na ginagamit para sa disinfection?",
+  q_ur: "جراثیم کو ختم کرنے کے لیے استعمال ہونے والے گرم پانی کا درجہ حرارت کیا ہے؟",
+  c_ar: ["50°م", "63°م", "82°م"],
+  c_en: ["50°C", "63°C", "82°C"],
+  c_fil: ["50°C", "63°C", "82°C"],
+  c_ur: ["50°C", "63°C", "82°C"],
+  answer: 2
+},
+{
+  q_ar: "أين توجد بكتيریا السالمونيلا عادة؟",
+  q_en: "Where is Salmonella bacteria usually found?",
+  q_fil: "Saan kadalubhasa ang Salmonella bacteria?",
+  q_ur: "السالمونيلا بیکٹیریا عام طور پر کہاں پایا جاتا ہے؟",
+  c_ar: ["في الأرز المطبوخ", "داخل الدواجن واللحوم والبيض", "في منتجات الألبان فقط"],
+  c_en: ["In cooked rice", "Inside poultry, meat, and eggs", "In dairy products only"],
+  c_fil: ["Sa putong bigas", "Sa loob ng manok, karne, at itlog", "Sa mga produktong pangalat lamang"],
+  c_ur: ["پکے ہوئے چاول میں", "مرغی، گوشت اور انڈوں کے اندر", "صرف ڈیری کی مصنوعات میں"],
+  answer: 1
+},
+{
+  q_ar: "بكتيریا باسيلس سيریوس توجد عادة في:",
+  q_en: "Bacillus cereus bacteria is usually found in:",
+  q_fil: "Ang Bacillus cereus bacteria ay karaniwang makikita sa:",
+  q_ur: "بیسیلس سیریس بیکٹیریا عام طور پر کہاں پایا جاتا ہے:",
+  c_ar: ["اللحوم النيئة", "الأرز المطبوخ والسلطات", "منتجات الألبان"],
+  c_en: ["Raw meat", "Cooked rice and salads", "Dairy products"],
+  c_fil: ["Hilaw na karne", "Putong bigas at salad", "Mga produktong pangalat"],
+  c_ur: ["کچا گوشت", "پکے ہوئے چاول اور سلاد", "ڈیری کی مصنوعات"],
+  answer: 1
+},
+{
+  q_ar: "ما هي أعراض التسمم الغذائي الشائعة؟",
+  q_en: "What are the common symptoms of foodborne illness?",
+  q_fil: "Ano ang mga karaniwan na sintomas ng sakit na dulot ng pagkain?",
+  q_ur: "کھانے سے ہونے والی بیماری کی عام علامات کیا ہیں؟",
+  c_ar: ["صداع وآلام في الظهر", "ألم في البطن، تقيؤ، غثيان، إسهال، حمى", "سعال وضيق في التنفس"],
+  c_en: ["Headache and back pain", "Abdominal pain, vomiting, nausea, diarrhea, fever", "Cough and shortness of breath"],
+  c_fil: ["Sakit ng ulo at sakit sa likod", "Sakit sa tiyan, pagsusuka, kamukmukan, pagtatae, init", "Ubo at bigal sa paghinga"],
+  c_ur: ["سر درد اور پیٹھ کے درد", "پیٹ میں درد، قے، متلی، اسہال، بخار", "کھانسی اور سانس میں تنگی"],
+  answer: 1
+},
+{
+  q_ar: "متى تظهر أعراض التسمم الغذائي عادة؟",
+  q_en: "When do symptoms of foodborne illness usually appear?",
+  q_fil: "Kailan kadalubhasa ng mga sintomas ng sakit na dulot ng pagkain?",
+  q_ur: "کھانے سے ہونے والی بیماری کی علامات عام طور پر کب ظاہر ہوتی ہیں؟",
+  c_ar: ["فوراً بعد الأكل", "بين ساعتين و36 ساعة بعد تناول الغذاء الملوث", "بعد أسبوع على الأقل"],
+  c_en: ["Immediately after eating", "Between 2 and 36 hours after consuming contaminated food", "At least one week later"],
+  c_fil: ["Kaagad pagkatapos kumain", "Sa pagitan ng 2 at 36 oras pagkatapos ng pagkain ng kontaminadong pagkain", "Kahit isang linggo pagkatapos"],
+  c_ur: ["کھانے کے فوری بعد", "آلودہ کھانے کھانے کے 2 سے 36 گھنٹے کے بعد", "کم از کم ایک ہفتہ بعد"],
+  answer: 1
+},
+{
+  q_ar: "ما الفرق بين التنظيف والتطهير؟",
+  q_en: "What is the difference between cleaning and disinfection?",
+  q_fil: "Ano ang pagkakaiba sa pagitan ng paglilinis at disinfection?",
+  q_ur: "صفائی اور جراثیم کو ختم کرنے میں کیا فرق ہے؟",
+  c_ar: ["لا يوجد فرق", "التنظيف يزيل الأوساخ المرئية والتطهير يقتل الميكروبات", "التطهير يأتي قبل التنظيف"],
+  c_en: ["No difference", "Cleaning removes visible dirt and disinfection kills microbes", "Disinfection comes before cleaning"],
+  c_fil: ["Walang pagkakaiba", "Ang paglilinis ay naglalis ng nakikitang alikabok at ang disinfection ay pumapatay ng microbe", "Ang disinfection ay dumating bago ang paglilinis"],
+  c_ur: ["کوئی فرق نہیں", "صفائی نظر آنے والی گندگی کو ہٹاتی ہے اور جراثیم کو ختم کرنا جرثوموں کو مار ڈالتا ہے", "جراثیم کو ختم کرنا صفائی سے پہلے آتا ہے"],
+  answer: 1
+},
+{
+  q_ar: "یجب تغيير القفازات كل كم من الوقت؟",
+  q_en: "How often should gloves be changed?",
+  q_fil: "Gaano kadalas dapat baguhin ang mga glove?",
+  q_ur: "دستانے کتنے وقت میں تبدیل کیے جائیں؟",
+  c_ar: ["كل ساعة", "كل نصف ساعة", "كل ساعتين"],
+  c_en: ["Every hour", "Every half hour", "Every two hours"],
+  c_fil: ["Bawat oras", "Bawat kalahating oras", "Bawat dalawang oras"],
+  c_ur: ["ہر گھنٹے", "ہر آدھے گھنٹے", "ہر دو گھنٹے"],
+  answer: 1
+},
+{
+  q_ar: "سلامة الغذاء مهمة فقط للمطاعم الكبيرة",
+  q_en: "Food safety is important only for large restaurants",
+  q_fil: "Ang kaligtasan ng pagkain ay mahalaga lamang para sa malalaking restaurant",
+  q_ur: "کھانے کی حفاظت صرف بڑی ریستورانوں کے لیے اہم ہے",
+  c_ar: ["صح", "خطأ، مهمة لجمیع منشآت الغذاء", "حسب عدد العملاء"],
+  c_en: ["True", "False, important for all food facilities", "Depending on number of customers"],
+  c_fil: ["Tama", "Mali, mahalaga para sa lahat ng pasilidad ng pagkain", "Depende sa bilang ng mga customer"],
+  c_ur: ["صحیح", "غلط، تمام کھانے کی سہولیات کے لیے اہم ہے", "صارفین کی تعداد پر منحصر"],
+  answer: 1
+},
+{
+  q_ar: "ما هي الحساسية الغذائية؟",
+  q_en: "What is food allergy?",
+  q_fil: "Ano ang food allergy?",
+  q_ur: "کھانے کی الرجی کیا ہے؟",
+  c_ar: ["تسمم غذائي بسبب البكتيریا", "رد فعل غير عادي من جهاز المناعة تجاه بعض أنواع الغذاء", "عدم الرغبة في تناول أطعمة معينة"],
+  c_en: ["Foodborne poisoning from bacteria", "An abnormal immune response to certain types of food", "Unwillingness to eat certain foods"],
+  c_fil: ["Pagpapahiwalay ng bacteria dahil sa pagkain", "Isang abnormal na tugon ng immune system sa ilang uri ng pagkain", "Kawalan ng pagnanais na kumain ng ilang partikular na pagkain"],
+  c_ur: ["بیکٹیریا سے کھانے کی زہریلا پن", "کچھ اقسام کے کھانے پر مدافعتی نظام کا غیر معمولی ردعمل", "بعض خاص کھانوں کو کھانے میں عدم رغبت"],
+  answer: 1
+},
+{
+  q_ar: "النظافة الشخصية تبدأ:",
+  q_en: "Personal hygiene begins:",
+  q_fil: "Ang personal na kalinisan ay nagsisimula sa:",
+  q_ur: "ذاتی صفائی شروع ہوتی ہے:",
+  c_ar: ["عند الوصول لمكان العمل", "قبل الوصول للعمل (من المنزل)", "عند بدء تحضير الغذاء"],
+  c_en: ["Upon arrival at work", "Before arriving at work (from home)", "When starting food preparation"],
+  c_fil: ["Sa pagdating sa trabaho", "Bago dumating sa trabaho (mula sa bahay)", "Kapag nagsimula ng paghahanda ng pagkain"],
+  c_ur: ["کام کے مقام پر پہنچنے پر", "کام کے لیے پہنچنے سے پہلے (گھر سے)", "کھانے کی تیاری شروع کرتے وقت"],
+  answer: 1
+},
+{
+  q_ar: "ما هو أول إجراء یجب القيام به قبل بدء العمل؟",
+  q_en: "What is the first procedure to perform before starting work?",
+  q_fil: "Ano ang unang pamamaraan upang gawin bago magsimula ng trabaho?",
+  q_ur: "کام شروع کرنے سے پہلے پہلی کارروائی کیا ہے؟",
+  c_ar: ["تشغيل المعدات", "خلع الساعة والحلي وغسل اليدین", "ارتداء القفازات مباشرة"],
+  c_en: ["Turn on equipment", "Remove watch and jewelry and wash hands", "Put on gloves immediately"],
+  c_fil: ["I-on ang kagamitan", "Tanggalin ang relo at alahas at hugasan ang mga kamay", "Magsuot ng mga glove kaagad"],
+  c_ur: ["سامان چلائیں", "گھڑی اور زیورات کو نکالیں اور ہاتھ دھوئیں", "فوری طور پر دستانے پہنیں"],
+  answer: 1
+},
+{
+  q_ar: "یجب تخزين الأغذية على أرفف بارتفاع كم سم على الأقل عن الأرض؟",
+  q_en: "At what minimum height in cm should foods be stored on shelves from the ground?",
+  q_fil: "Sa anong minimum na taas sa cm ang dapat na i-store ang mga pagkain sa mga istante mula sa lupa?",
+  q_ur: "کھانوں کو زمین سے کم از کم کتنے سینٹی میٹر کی اونچائی پر رکھا جائے؟",
+  c_ar: ["5 سم", "15 سم", "30 سم"],
+  c_en: ["5 cm", "15 cm", "30 cm"],
+  c_fil: ["5 cm", "15 cm", "30 cm"],
+  c_ur: ["5 سم", "15 سم", "30 سم"],
+  answer: 1
+}
+];;
+
         let currentQuestionIndex = 0;
         let quizQuestions = [];
         let userAnswers = [];
         let startTime = 0;
         let timerInterval = null;
-        let userData = {
-            name: '',
-            residencyNumber: '',
-            restaurantName: ''
-        };
+        let userData = { name: '', residencyNumber: '', restaurantName: '' };
 
-        // ============ Utility Functions ============
-        function seededRandom(seed) {
-            const x = Math.sin(seed) * 10000;
-            return x - Math.floor(x);
-        }
-
-        function shuffleArray(array, seed) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(seededRandom(seed + i) * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        function setLanguage(lang) {
+            currentLang = lang;
+            const u = UI[lang];
+            document.documentElement.lang = lang === 'ar' || lang === 'ur' ? lang : 'en';
+            document.documentElement.dir = u.dir;
+            document.getElementById('mainTitle').textContent = u.title;
+            document.getElementById('subTitle').textContent = u.subtitle;
+            document.getElementById('labelName').textContent = u.labelName;
+            document.getElementById('labelResidency').textContent = u.labelResidency;
+            document.getElementById('labelRestaurant').textContent = u.labelRestaurant;
+            document.getElementById('userName').placeholder = u.phName;
+            document.getElementById('residencyNumber').placeholder = u.phResidency;
+            document.getElementById('restaurantName').placeholder = u.phRestaurant;
+            document.getElementById('btnStart').textContent = u.btnStart;
+            document.getElementById('prevBtn').textContent = u.btnPrev;
+            document.getElementById('nextBtn').textContent = u.btnNext;
+            document.getElementById('btnSubmit').textContent = u.btnSubmit;
+            document.getElementById('btnSend').textContent = u.btnSend;
+            document.getElementById('btnReset').textContent = u.btnReset;
+            document.getElementById('wrongTitle').textContent = u.wrongTitle;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            event && event.target && event.target.classList.add('active');
+            document.querySelectorAll('.lang-btn').forEach(b => {
+                if ((lang==='ar' && b.textContent==='العربية') || (lang==='en' && b.textContent==='English') || (lang==='fil' && b.textContent==='Filipino') || (lang==='ur' && b.textContent==='اردو')) b.classList.add('active');
+            });
+            if (quizQuestions.length > 0 && document.getElementById('quizSection').classList.contains('active')) {
+                renderQuestion();
             }
-            return shuffled;
         }
 
-        function selectRandomQuestions(pool, count, seed) {
-            const shuffled = shuffleArray(pool, seed);
-            return shuffled.slice(0, count);
-        }
+        function getQ(question) { return question['q_' + currentLang] || question.q_ar; }
+        function getC(question) { return question['c_' + currentLang] || question.c_ar; }
 
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        }
+        function seededRandom(seed) { const x = Math.sin(seed) * 10000; return x - Math.floor(x); }
+        function shuffleArray(array, seed) { const s = [...array]; for (let i = s.length - 1; i > 0; i--) { const j = Math.floor(seededRandom(seed + i) * (i + 1)); [s[i], s[j]] = [s[j], s[i]]; } return s; }
+        function selectRandomQuestions(pool, count, seed) { return shuffleArray(pool, seed).slice(0, count); }
+        function formatTime(seconds) { const m = Math.floor(seconds / 60), s = seconds % 60; return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
 
-        // ============ Registration ============
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
             userData.name = document.getElementById('userName').value.trim();
             userData.residencyNumber = document.getElementById('residencyNumber').value.trim();
             userData.restaurantName = document.getElementById('restaurantName').value.trim();
-
-            if (!userData.name || !userData.residencyNumber || !userData.restaurantName) {
-                alert('يرجى ملء جميع الحقول المطلوبة');
-                return;
-            }
-
-            // Initialize quiz
+            if (!userData.name || !userData.residencyNumber || !userData.restaurantName) { alert(UI[currentLang].fillAll); return; }
             initializeQuiz();
-
-            // Hide registration, show quiz
             document.getElementById('registrationSection').style.display = 'none';
             document.getElementById('quizSection').classList.add('active');
-
+            document.getElementById('langSelector').style.display = 'none';
             renderQuestion();
             startTimer();
         });
 
-        function initializeQuiz() {
-            const seed = Date.now();
-            quizQuestions = selectRandomQuestions(allQuestions, 50, seed);
-            userAnswers = new Array(50).fill(null);
-            currentQuestionIndex = 0;
-            startTime = Date.now();
-        }
+        function initializeQuiz() { quizQuestions = selectRandomQuestions(allQuestions, 50, Date.now()); userAnswers = new Array(50).fill(null); currentQuestionIndex = 0; }
 
-        // ============ Quiz Logic ============
         function renderQuestion() {
             const question = quizQuestions[currentQuestionIndex];
-            const questionCard = document.getElementById('questionCard');
-
+            const u = UI[currentLang];
+            const choices = getC(question);
             let choicesHTML = '';
-            question.choices.forEach((choice, index) => {
-                const choiceId = `choice-${index}`;
-                const isChecked = userAnswers[currentQuestionIndex] === index ? 'checked' : '';
-                const selectedClass = userAnswers[currentQuestionIndex] === index ? 'selected' : '';
-
-                choicesHTML += `
-                    <div class="choice ${selectedClass}">
-                        <input type="radio" id="${choiceId}" name="answer" value="${index}" ${isChecked}>
-                        <label for="${choiceId}">${getChoiceLabel(index)} - ${choice}</label>
-                    </div>
-                `;
+            choices.forEach((choice, index) => {
+                const id = `choice-${index}`;
+                const checked = userAnswers[currentQuestionIndex] === index ? 'checked' : '';
+                const sel = userAnswers[currentQuestionIndex] === index ? 'selected' : '';
+                choicesHTML += `<div class="choice ${sel}"><input type="radio" id="${id}" name="answer" value="${index}" ${checked}><label for="${id}">${String.fromCharCode(65+index)} - ${choice}</label></div>`;
             });
-
-            questionCard.innerHTML = `
-                <div class="question-number">السؤال ${currentQuestionIndex + 1} من 50</div>
-                <div class="question-text">${question.q}</div>
-                <div class="choices">${choicesHTML}</div>
-            `;
-
-            // Add event listeners to radio buttons
+            document.getElementById('questionCard').innerHTML = `<div class="question-number">${u.qOf.replace('{0}', currentQuestionIndex+1)}</div><div class="question-text">${getQ(question)}</div><div class="choices">${choicesHTML}</div>`;
             document.querySelectorAll('input[name="answer"]').forEach(radio => {
                 radio.addEventListener('change', function() {
                     userAnswers[currentQuestionIndex] = parseInt(this.value);
-
-                    // Update selected state
-                    document.querySelectorAll('.choice').forEach(choice => {
-                        choice.classList.remove('selected');
-                    });
+                    document.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
                     this.parentElement.classList.add('selected');
                 });
             });
-
             updateProgress();
-            updateNavigationButtons();
-        }
-
-        function getChoiceLabel(index) {
-            return String.fromCharCode(65 + index); // A, B, C
-        }
-
-        function updateProgress() {
-            const progress = ((currentQuestionIndex + 1) / 50) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-            document.getElementById('questionProgress').textContent = `السؤال ${currentQuestionIndex + 1} من 50`;
-        }
-
-        function updateNavigationButtons() {
             document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
             document.getElementById('nextBtn').disabled = currentQuestionIndex === 49;
         }
 
-        function nextQuestion() {
-            if (currentQuestionIndex < 49) {
-                currentQuestionIndex++;
-                renderQuestion();
-            }
+        function updateProgress() {
+            const p = ((currentQuestionIndex + 1) / 50) * 100;
+            document.getElementById('progressFill').style.width = p + '%';
+            document.getElementById('questionProgress').textContent = UI[currentLang].qOf.replace('{0}', currentQuestionIndex + 1);
         }
 
-        function previousQuestion() {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                renderQuestion();
-            }
-        }
+        function nextQuestion() { if (currentQuestionIndex < 49) { currentQuestionIndex++; renderQuestion(); } }
+        function previousQuestion() { if (currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } }
+        function startTimer() { startTime = Date.now(); timerInterval = setInterval(() => { document.getElementById('timer').textContent = formatTime(Math.floor((Date.now() - startTime) / 1000)); }, 1000); }
+        function stopTimer() { clearInterval(timerInterval); }
 
-        function startTimer() {
-            startTime = Date.now();
-            timerInterval = setInterval(() => {
-                const elapsed = Math.floor((Date.now() - startTime) / 1000);
-                document.getElementById('timer').textContent = formatTime(elapsed);
-            }, 1000);
-        }
-
-        function stopTimer() {
-            clearInterval(timerInterval);
-        }
-
-        // ============ Quiz Submission ============
         function submitQuiz() {
             stopTimer();
-
-            // Calculate results
             let correctCount = 0;
             const wrongAnswers = [];
-
+            const u = UI[currentLang];
             quizQuestions.forEach((question, index) => {
-                if (userAnswers[index] === question.answer) {
-                    correctCount++;
-                } else if (userAnswers[index] !== null) {
-                    wrongAnswers.push({
-                        index: index + 1,
-                        question: question.q,
-                        userAnswer: userAnswers[index] !== null ? question.choices[userAnswers[index]] : 'لم يتم الإجابة',
-                        correctAnswer: question.choices[question.answer],
-                        userAnswerIndex: userAnswers[index]
-                    });
+                if (userAnswers[index] === question.answer) { correctCount++; }
+                else if (userAnswers[index] !== null) {
+                    const choices = getC(question);
+                    wrongAnswers.push({ index: index+1, question: getQ(question), userAnswer: userAnswers[index] !== null ? choices[userAnswers[index]] : u.noAnswer, correctAnswer: choices[question.answer] });
                 }
             });
-
-            displayResults(correctCount, wrongAnswers);
-        }
-
-        function displayResults(correctCount, wrongAnswers) {
             const percentage = Math.round((correctCount / 50) * 100);
-            const scoreRotation = (percentage / 100) * 360;
-
             document.getElementById('scoreNumber').textContent = percentage;
             document.getElementById('scoreDetails').textContent = `${correctCount}/50`;
-            document.getElementById('scoreCircle').style.setProperty('--rotation', scoreRotation + 'deg');
-
-            // Score message
-            let message = '';
-            if (percentage >= 80) {
-                message = 'ممتاز! أنت لديك فهم عميق لسلامة الغذاء';
-            } else if (percentage >= 60) {
-                message = 'جيد! لديك معرفة جيدة بسلامة الغذاء';
-            } else if (percentage >= 40) {
-                message = 'مقبول. يرجى مراجعة المواد التثقيفية';
-            } else {
-                message = 'يرجى متابعة الدراسة والتدريب على سلامة الغذاء';
-            }
+            document.getElementById('scoreCircle').style.setProperty('--rotation', (percentage / 100) * 360 + 'deg');
+            let message = percentage >= 80 ? u.excellent : percentage >= 60 ? u.good : percentage >= 40 ? u.acceptable : u.needStudy;
             document.getElementById('scoreMessage').textContent = message;
-            document.getElementById('scorePercentageText').textContent = `النسبة المئوية: ${percentage}%`;
-
-            // Display wrong answers
-            let wrongAnswersHTML = '';
-            if (wrongAnswers.length === 0) {
-                wrongAnswersHTML = '<div class="wrong-answer-item no-wrong">لا توجد إجابات خاطئة! أنت تميز فوق العادة</div>';
-            } else {
-                wrongAnswers.forEach(wrong => {
-                    wrongAnswersHTML += `
-                        <div class="wrong-answer-item">
-                            <div class="question-num">السؤال ${wrong.index}: ${wrong.question}</div>
-                            <div class="your-answer">إجابتك: ${wrong.userAnswer}</div>
-                            <div class="correct-answer">✓ الإجابة الصحيحة: ${wrong.correctAnswer}</div>
-                        </div>
-                    `;
-                });
-            }
-            document.getElementById('wrongAnswersList').innerHTML = wrongAnswersHTML;
-
-            // Hide quiz, show results
+            document.getElementById('scorePercentageText').textContent = `${u.percentage} ${percentage}%`;
+            let html = '';
+            if (wrongAnswers.length === 0) { html = `<div class="wrong-answer-item no-wrong">${u.noWrong}</div>`; }
+            else { wrongAnswers.forEach(w => { html += `<div class="wrong-answer-item"><div class="question-num">${u.question} ${w.index}: ${w.question}</div><div class="your-answer">${u.yourAnswer} ${w.userAnswer}</div><div class="correct-answer">${u.correctAnswer} ${w.correctAnswer}</div></div>`; }); }
+            document.getElementById('wrongAnswersList').innerHTML = html;
             document.getElementById('quizSection').classList.remove('active');
             document.getElementById('resultsSection').classList.add('active');
         }
 
-        // ============ Results Handling ============
         function sendToGoogleSheets() {
             const correctCount = parseInt(document.getElementById('scoreNumber').textContent) * 50 / 100;
             const percentage = parseInt(document.getElementById('scoreNumber').textContent);
-
-            const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbxRDUifoBkjbTt-hLXyZydwtyh9qmuPSlX7mTVpCmO7SFBNwNALEYnLXRVIWm-uyAs/exec';
-
-            const data = {
-                name: userData.name,
-                residencyNumber: userData.residencyNumber,
-                restaurant: userData.restaurantName,
-                score: correctCount,
-                percentage: percentage,
-                totalQuestions: 50,
-                timestamp: new Date().toLocaleString('ar-SA')
-            };
-
-            fetch(googleScriptUrl, {
-                method: 'POST',
-                body: JSON.stringify(data),
-                mode: 'no-cors'
+            const u = UI[currentLang];
+            fetch('https://script.google.com/macros/s/AKfycbxRDUifoBkjbTt-hLXyZydwtyh9qmuPSlX7mTVpCmO7SFBNwNALEYnLXRVIWm-uyAs/exec', {
+                method: 'POST', body: JSON.stringify({ name: userData.name, residencyNumber: userData.residencyNumber, restaurant: userData.restaurantName, score: correctCount, percentage: percentage, totalQuestions: 50, timestamp: new Date().toLocaleString('ar-SA') }), mode: 'no-cors'
             }).then(() => {
-                const messagesContainer = document.getElementById('messagesContainer');
-                messagesContainer.innerHTML = '<div class="success-message">تم إرسال النتائج بنجاح إلى Google Sheets</div>';
-                setTimeout(() => {
-                    messagesContainer.innerHTML = '';
-                }, 3000);
+                document.getElementById('messagesContainer').innerHTML = `<div class="success-message">${u.sendSuccess}</div>`;
+                setTimeout(() => { document.getElementById('messagesContainer').innerHTML = ''; }, 3000);
             }).catch(error => {
-                console.error('Error:', error);
-                const messagesContainer = document.getElementById('messagesContainer');
-                messagesContainer.innerHTML = '<div class="error-message">حدث خطأ أثناء إرسال البيانات. يرجى المحاولة لاحقاً</div>';
-                setTimeout(() => {
-                    messagesContainer.innerHTML = '';
-                }, 3000);
+                document.getElementById('messagesContainer').innerHTML = `<div class="error-message">${u.sendError}</div>`;
+                setTimeout(() => { document.getElementById('messagesContainer').innerHTML = ''; }, 3000);
             });
         }
 
         function resetQuiz() {
-            // Reset all variables
-            currentQuestionIndex = 0;
-            userAnswers = [];
-            userData = { name: '', residencyNumber: '', restaurantName: '' };
-
-            // Clear form
+            currentQuestionIndex = 0; userAnswers = []; userData = { name: '', residencyNumber: '', restaurantName: '' };
             document.getElementById('registrationForm').reset();
-
-            // Show registration, hide results
             document.getElementById('registrationSection').style.display = 'block';
             document.getElementById('resultsSection').classList.remove('active');
             document.getElementById('messagesContainer').innerHTML = '';
-
+            document.getElementById('langSelector').style.display = 'flex';
             stopTimer();
         }
     </script>
