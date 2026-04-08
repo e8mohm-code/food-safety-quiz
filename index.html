@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برنامج التثقيف الصحي للعاملين في منشآت الغذاء</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        .header h1 {
+            color: #0d7377;
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            color: #0a5c5f;
+            font-size: 14px;
+        }
+
+        /* Registration Form Styles */
+        .registration-form {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(13, 115, 119, 0.15);
+            margin-bottom: 30px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #0d7377;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #c8e6c9;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #0d7377;
+            box-shadow: 0 0 0 3px rgba(13, 115, 119, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+        }
+
+        .btn {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0d7377 0%, #0a5c5f 100%);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(13, 115, 119, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Quiz Section Styles */
+        .quiz-section {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .quiz-section.active {
+            display: block;
+        }
+
+        .progress-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0d7377 0%, #05a3a6 100%);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .timer {
+            display: inline-block;
+            background: #fff3e0;
+            color: #e65100;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(13, 115, 119, 0.15);
+        }
+
+        .question-number {
+            color: #0d7377;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            color: #333;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .choice {
+            padding: 16px;
+            border: 2px solid #c8e6c9;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f5f5f5;
+            font-size: 15px;
+            position: relative;
+        }
+
+        .choice input[type="radio"] {
+            margin-left: 12px;
+            cursor: pointer;
+        }
+
+        .choice:hover {
+            background: #e8f5e9;
+            border-color: #0d7377;
+        }
+
+        .choice input[type="radio"]:checked + label {
+            color: #0d7377;
+            font-weight: 600;
+        }
+
+        .choice.selected {
+            background: #c8e6c9;
+            border-color: #0d7377;
+        }
+
+        .choice label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0;
+        }
+
+        .choice input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #0d7377;
+        }
+
+        .btn-navigation {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .btn-nav {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #0d7377;
+            color: #0d7377;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 150px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: #0d7377;
+            color: white;
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #0d7377 0%, #0a5c5f 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-weight: 600;
+            margin-top: 24px;
+        }
+
+        /* Results Section */
+        .results-section {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .results-section.active {
+            display: block;
+        }
+
+        .results-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(13, 115, 119, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .score-display {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            background: conic-gradient(#0d7377 0deg, #0d7377 var(--rotation), #e0e0e0 var(--rotation), #e0e0e0 360deg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(13, 115, 119, 0.2);
+        }
+
+        .score-value {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 700;
+            color: #0d7377;
+        }
+
+        .score-value small {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .score-message {
+            font-size: 20px;
+            color: #333;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+
+        .score-percentage {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .wrong-answers {
+            margin-top: 40px;
+        }
+
+        .wrong-answers h3 {
+            color: #0d7377;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .wrong-answer-item {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 16px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+        }
+
+        .wrong-answer-item.no-wrong {
+            background: #d4edda;
+            border-left-color: #28a745;
+            text-align: center;
+            color: #155724;
+        }
+
+        .question-num {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .your-answer {
+            color: #856404;
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .correct-answer {
+            color: #155724;
+            background: #d4edda;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #0d7377 0%, #0a5c5f 100%);
+            color: white;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn-send-results {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .btn-send-results:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(40, 167, 69, 0.3);
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .registration-form,
+            .question-card,
+            .results-card {
+                padding: 24px;
+            }
+
+            .question-text {
+                font-size: 16px;
+            }
+
+            .score-circle {
+                width: 150px;
+                height: 150px;
+            }
+
+            .score-value {
+                font-size: 36px;
+            }
+
+            .progress-info {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+            }
+
+            .btn-navigation {
+                flex-wrap: wrap;
+            }
+
+            .btn-nav {
+                min-width: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .header p {
+                font-size: 12px;
+            }
+
+            .registration-form,
+            .question-card,
+            .results-card {
+                padding: 16px;
+            }
+
+            .form-group {
+                margin-bottom: 16px;
+            }
+
+            .question-text {
+                font-size: 15px;
+            }
+
+            .choice {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .score-circle {
+                width: 120px;
+                height: 120px;
+            }
+
+            .score-value {
+                font-size: 28px;
+            }
+
+            .score-message {
+                font-size: 18px;
+            }
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #f5c6cb;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>برنامج التثقيف الصحي للعاملين في منشآت الغذاء</h1>
+            <p>Health Education Programme for Workers in Food Establishments</p>
+        </div>
+
+        <!-- Registration Section -->
+        <div class="registration-section" id="registrationSection">
+            <div class="registration-form">
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="userName">الاسم الكامل *</label>
+                        <input type="text" id="userName" placeholder="أدخل اسمك الكامل" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="residencyNumber">رقم الإقامة *</label>
+                        <input type="text" id="residencyNumber" placeholder="أدخل رقم الإقامة" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="restaurantName">اسم المطعم / المنشأة *</label>
+                        <input type="text" id="restaurantName" placeholder="أدخل اسم المطعم أو المنشأة" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">ابدأ الاختبار</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="quiz-section" id="quizSection">
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span id="questionProgress">السؤال 1 من 50</span>
+                    <span class="timer" id="timer">00:00</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 2%"></div>
+                </div>
+            </div>
+
+            <div class="question-card" id="questionCard">
+                <!-- Questions will be rendered here -->
+            </div>
+
+            <div class="btn-navigation">
+                <button class="btn-nav" id="prevBtn" onclick="previousQuestion()">السابق</button>
+                <button class="btn-nav" id="nextBtn" onclick="nextQuestion()">التالي</button>
+            </div>
+
+            <button class="btn btn-submit" onclick="submitQuiz()">إنهاء الاختبار</button>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <div class="results-card">
+                <div class="score-display">
+                    <div class="score-circle" id="scoreCircle">
+                        <div class="score-value" id="scoreValue">
+                            <span id="scoreNumber">0</span>%
+                            <small id="scoreDetails">0/50</small>
+                        </div>
+                    </div>
+                    <div class="score-message" id="scoreMessage"></div>
+                    <div class="score-percentage" id="scorePercentageText"></div>
+                </div>
+
+                <div id="messagesContainer"></div>
+
+                <div class="wrong-answers" id="wrongAnswersContainer">
+                    <h3>الإجابات الخاطئة:</h3>
+                    <div id="wrongAnswersList"></div>
+                </div>
+
+                <button class="btn btn-send-results" onclick="sendToGoogleSheets()">إرسال النتائج</button>
+                <button class="btn btn-reset" onclick="resetQuiz()">إجراء الاختبار مرة أخرى</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============ Quiz Data ============
+        const allQuestions = [
+            {q: "ما هو الهدف الرئيسي من التثقيف الصحي للعاملين في منشآت الغذاء؟", choices: ["تحسين الإنتاجية وزيادة الأرباح", "ضمان سلامة الغذاء المقدّم للمستفيدين وحماية الصحة العامة", "تعزيز معايير النظافة الشخصية فقط"], answer: 1},
+            {q: "من هم متداولو الغذاء؟", choices: ["الأفراد الذين يقومون بتحضير الغذاء فقط", "جميع العاملين الذين يتعاملون بشكل مباشر أو غير مباشر مع الغذاء وأدواته", "مدراء المنشأة فقط"], answer: 1},
+            {q: "ماذا يجب أن تفعل إذا شعرت بأعراض مرض معدٍ أثناء العمل؟", choices: ["الاستمرار في العمل مع ارتداء الكمامة فقط", "إخبار المشرف والتوقف عن التعامل مع الغذاء", "غسل اليدين جيداً والاستمرار في العمل"], answer: 1},
+            {q: "كم مدة صلاحية الشهادة الصحية؟", choices: ["سنتين", "سنة واحدة", "ثلاث سنوات"], answer: 1},
+            {q: "ما هي الرقابة الصحية الذاتية؟", choices: ["رقابة تقوم بها الجهات الحكومية فقط", "فحص دوري يقوم به مدير المنشأة والمشرفون والعاملون", "تفتيش سنوي من وزارة الصحة"], answer: 1},
+            {q: "ما هو التثقيف الصحي التنشيطي؟", choices: ["تدريب يتم مرة واحدة فقط", "تدريب منتظم كل 3 سنوات لتذكيرك بما تعلمته", "تدريب خاص بالمشرفين فقط"], answer: 1},
+            {q: "التثقيف الصحي يشمل تدريباً للعمال الجدد والحاليين", choices: ["صح", "خطأ", "للعمال الجدد فقط"], answer: 0},
+            {q: "الرقابة الصحية الذاتية هي مسؤولية المشرفين فقط", choices: ["صح", "خطأ", "حسب حجم المنشأة"], answer: 1},
+            {q: "كم عدد الأمراض التي تنتقل عبر الغذاء تقريباً؟", choices: ["أكثر من 50 مرض", "أكثر من 200 مرض", "أقل من 20 مرض"], answer: 1},
+            {q: "ما هي أنواع المخاطر الرئيسية على سلامة الغذاء؟", choices: ["ميكروبية وكيميائية فقط", "ميكروبية، وكيميائية، وفيزيائية، والحساسية", "فيزيائية فقط"], answer: 1},
+            {q: "ما الذي يعتبر مثالاً على التلوث غير المباشر (العرضي) للغذاء؟", choices: ["سقوط حشرة على الغذاء", "استخدام سكين غير نظيف لتقطيع غذاء مطبوخ", "لمس الغذاء بأيدي متسخة"], answer: 1},
+            {q: "يمكن للغذاء أن يتلوث في أي مرحلة من مراحل السلسلة الغذائية", choices: ["صح", "خطأ", "فقط أثناء التحضير"], answer: 0},
+            {q: "وجود نظام سلامة الغذاء يساعد في تقليل هدر الغذاء", choices: ["صح", "خطأ", "لا علاقة بينهما"], answer: 0},
+            {q: "ما هي البكتيريا؟", choices: ["كائنات حية كبيرة تُرى بالعين", "كائنات حية صغيرة جداً لا نراها بالعين", "مواد كيميائية ضارة"], answer: 1},
+            {q: "ما هي المنطقة الخطرة لنمو البكتيريا في الغذاء؟", choices: ["بين 0°م و10°م", "بين 5°م و63°م", "بين 70°م و100°م"], answer: 1},
+            {q: "ما هي أفضل طريقة للتحكم في نمو البكتيريا في الغذاء؟", choices: ["إضافة الملح للغذاء", "التحكم في درجة الحرارة والوقت", "تغليف الغذاء بإحكام فقط"], answer: 1},
+            {q: "جميع أنواع البكتيريا ضارة بالإنسان", choices: ["صح", "خطأ", "معظمها ضار"], answer: 1},
+            {q: "يمكن للبكتيريا أن تنمو وتتكاثر في الغذاء المجمد", choices: ["صح", "خطأ", "أحياناً"], answer: 1},
+            {q: "الطهي الجيد للغذاء يقتل معظم البكتيريا الضارة", choices: ["صح", "خطأ", "فقط بعض الأنواع"], answer: 0},
+            {q: "كم تستغرق البكتيريا للانقسام في الظروف المناسبة؟", choices: ["ساعة واحدة", "10-20 دقيقة", "يوم كامل"], answer: 1},
+            {q: "ما هي أفضل درجة حرارة لنمو البكتيريا؟", choices: ["5°م", "37°م (درجة حرارة الجسم)", "75°م"], answer: 1},
+            {q: "فوق أي درجة حرارة تتوقف البكتيريا عن النمو؟", choices: ["50°م", "63°م", "37°م"], answer: 1},
+            {q: "من أي درجة حرارة تموت معظم البكتيريا الضارة؟", choices: ["63°م", "75°م وأعلى", "50°م"], answer: 1},
+            {q: "ما هي الأغذية عالية الخطورة؟", choices: ["الأغذية الجافة مثل الحبوب والبسكويت", "الأغذية الجاهزة للأكل الغنية بالبروتين والرطوبة", "الأغذية المعلبة فقط"], answer: 1},
+            {q: "الفيروسات تتكاثر داخل الغذاء", choices: ["صح", "خطأ، تتكاثر داخل جسم الإنسان", "أحياناً"], answer: 1},
+            {q: "الفطريات (العفن) يمكنها النمو في درجات حرارة متنوعة حتى في الثلاجة", choices: ["صح", "خطأ", "فقط في درجة حرارة الغرفة"], answer: 0},
+            {q: "ما هي ملوثات الغذاء الكيميائية؟", choices: ["البكتيريا والفيروسات", "مواد مثل المبيدات ومواد التنظيف والمواد الحافظة الزائدة", "قطع الزجاج والمعادن"], answer: 1},
+            {q: "الملوثات الفيزيائية دائماً مرئية بالعين المجردة", choices: ["صح", "خطأ", "في الغالب نعم"], answer: 1},
+            {q: "يجب تغطية الغذاء المكشوف قبل رش المبيدات الحشرية", choices: ["صح", "خطأ", "فقط إذا كان الرش قريباً"], answer: 0},
+            {q: "التلوث الكيميائي للغذاء يحدث فقط عن طريق الخطأ", choices: ["صح", "خطأ، قد يحدث بقصد أو بدون قصد", "نادراً"], answer: 1},
+            {q: "ما هو الإجراء الصحيح عند ملاحظة تلف في المعدات؟", choices: ["محاولة إصلاحها بنفسك", "إبلاغ المشرف فوراً", "الاستمرار في استخدامها حتى نهاية اليوم"], answer: 1},
+            {q: "أي من التالي يعتبر من الملوثات الفيزيائية للغذاء؟", choices: ["البكتيريا", "مواد التنظيف", "قطع الزجاج الصغيرة"], answer: 2},
+            {q: "كيف يجب التعامل مع المواد الكيميائية في منشأة الغذاء؟", choices: ["تخزينها مع المواد الغذائية لسهولة الوصول", "نقلها من عبواتها الأصلية إلى عبوات أصغر", "تخزينها في أماكن مخصصة بعيداً عن الغذاء"], answer: 2},
+            {q: "ما هو فساد الغذاء؟", choices: ["تغير في لون الغذاء فقط", "عملية تدهور تؤدي إلى تغير اللون والرائحة والملمس والطعم", "إضافة مواد حافظة للغذاء"], answer: 1},
+            {q: "جميع أنواع الأغذية تفسد بنفس السرعة", choices: ["صح", "خطأ", "تقريباً نعم"], answer: 1},
+            {q: "الغذاء الفاسد دائماً ما يكون له رائحة كريهة", choices: ["صح", "خطأ، بعض الغذاء الملوث قد يبدو طبيعياً", "في معظم الحالات"], answer: 1},
+            {q: "انتفاخ العلب المعدنية قد يكون علامة على فساد الغذاء", choices: ["صح", "خطأ", "لا علاقة"], answer: 0},
+            {q: "ما هو الإجراء الصحيح عند ملاحظة علامات فساد على الغذاء عند استلامه؟", choices: ["قبول الغذاء وتخزينه بعيداً عن الأغذية الأخرى", "رفض استلام الغذاء", "قبول الغذاء واستخدامه بسرعة"], answer: 1},
+            {q: "ما هي إحدى علامات فساد اللحوم؟", choices: ["زيادة في الحجم", "تغير اللون إلى الرمادي أو الأخضر", "ظهور بقع بيضاء"], answer: 1},
+            {q: "الأطفال تحت سن 5 سنوات من الفئات الأكثر عرضة للإصابة بالتسمم الغذائي", choices: ["صح", "خطأ", "فقط الرضع"], answer: 0},
+            {q: "البكتيريا المسببة للتسمم الغذائي موجودة فقط في الأغذية النيئة", choices: ["صح", "خطأ", "في معظم الحالات"], answer: 1},
+            {q: "أي من الأغذية التالية يعتبر من أكثر الأغذية المسببة للحساسية؟", choices: ["التفاح", "البطاطس", "الفول السوداني"], answer: 2},
+            {q: "ما هي درجة الحرارة المناسبة لحفظ الغذاء الساخن لمنع نمو البكتيريا؟", choices: ["37°م أو أعلى", "50°م أو أعلى", "63°م أو أعلى"], answer: 2},
+            {q: "ماذا يجب أن تفعل إذا لاحظت انتفاخاً في علبة معدنية للغذاء؟", choices: ["فتحها للتأكد من سلامة محتواها", "عدم استخدامها وإبلاغ المشرف فوراً", "وضعها في الثلاجة لتقليل الانتفاخ"], answer: 1},
+            {q: "يمكن ارتداء الحلي والساعات أثناء العمل في مجال الغذاء", choices: ["صح", "خطأ", "الساعات فقط مسموحة"], answer: 1},
+            {q: "يجب غسل اليدين قبل ارتداء القفازات وبعد تغييرها", choices: ["صح", "خطأ", "قبل الارتداء فقط"], answer: 0},
+            {q: "يمكن استخدام حوض غسل اليدين لغسل الأدوات والغذاء", choices: ["صح", "خطأ", "في حالات الطوارئ فقط"], answer: 1},
+            {q: "ما هي المدة المناسبة لغسل اليدين؟", choices: ["5 ثوانٍ", "10 ثوانٍ", "20 ثانية على الأقل"], answer: 2},
+            {q: "ماذا يجب أن تفعل إذا شعرت بالحاجة للعطس أثناء التعامل مع الغذاء؟", choices: ["العطس مباشرة على الغذاء", "الابتعاد عن الغذاء وتغطية الفم بالذراع", "العطس في يديك ثم مواصلة العمل"], answer: 1},
+            {q: "ما هو اللون المفضل للضمادات المستخدمة لتغطية الجروح في مناطق تحضير الغذاء؟", choices: ["الشفاف", "الأبيض", "الأزرق"], answer: 2},
+            {q: "التنظيف والتطهير هما نفس الشيء", choices: ["صح", "خطأ", "تقريباً"], answer: 1},
+            {q: "النفايات لا تشكل خطراً على سلامة الغذاء", choices: ["صح", "خطأ", "إذا كانت بعيدة عن الغذاء"], answer: 1},
+            {q: "وجود روائح غريبة في المنشأة قد يكون علامة على وجود آفات", choices: ["صح", "خطأ", "لا علاقة"], answer: 0},
+            {q: "ما هي درجة حرارة الماء المناسبة للتنظيف الرئيسي؟", choices: ["25°م", "50°م", "63°م"], answer: 1},
+            {q: "أي من التالي ليس من خصائص حاويات النفايات المثالية؟", choices: ["تفتح باليد", "مقاومة للآفات", "مزودة بغطاء محكم"], answer: 0},
+            {q: "ماذا يجب أن تفعل إذا لاحظت علامات وجود آفات في منشأة الغذاء؟", choices: ["تجاهل الأمر إذا كانت الآفات قليلة", "إبلاغ المشرف فوراً", "محاولة مكافحة الآفات بنفسك"], answer: 1},
+            {q: "الاشتراطات العامة لمنشآت الغذاء تشمل فقط تصميم المباني ولا تهتم بجودة الأدوات والمعدات", choices: ["صح", "خطأ", "حسب نوع المنشأة"], answer: 1},
+            {q: "يجب أن تكون الأرضيات والجدران والأسقف في منشآت الغذاء مقاومة للماء وسهلة التنظيف", choices: ["صح", "خطأ", "الأرضيات فقط"], answer: 0},
+            {q: "من الممكن استخدام نفس الحوض لغسل الخضروات وغسل الأواني", choices: ["صح", "خطأ، يجب فحصها على طاولة نظيفة", "إذا تم تنظيفه بينهما"], answer: 1},
+            {q: "ما الهدف الرئيسي من الفصل بين المناطق النظيفة وغير النظيفة في منشآت الغذاء؟", choices: ["توفير مساحة أكبر للعمل", "منع انتقال التلوث بين المناطق المختلفة", "تسهيل عملية التنظيف فقط"], answer: 1},
+            {q: "لماذا يجب أن تكون الأدوات والمعدات في منشآت الغذاء مصنوعة من مواد معينة؟", choices: ["لتكون أرخص ثمناً", "لتكون أثقل وزناً وأكثر ثباتاً", "لتكون آمنة وسهلة التنظيف"], answer: 2},
+            {q: "ما هو الإجراء الصحيح عند ملاحظة مصباح معطل في منطقة إعداد الغذاء؟", choices: ["تجاهل الأمر طالما هناك إضاءة كافية من مصادر أخرى", "محاولة إصلاح المصباح بنفسك", "الإبلاغ فوراً عن المصباح المعطل للمشرف"], answer: 2},
+            {q: "ما هو نظام الهاسب (HACCP)؟", choices: ["نظام لتنظيف المعدات", "نظام تحليل المخاطر ونقاط التحكم الحرجة لإدارة سلامة الغذاء", "نظام لتدريب العاملين فقط"], answer: 1},
+            {q: "إدارة سلامة الغذاء تهتم فقط بمرحلة التحضير والتقديم في المنشأة الغذائية", choices: ["صح", "خطأ", "في المطاعم الكبيرة فقط"], answer: 1},
+            {q: "نظام الهاسب (HACCP) يركز على معالجة المشاكل بعد حدوثها", choices: ["صح", "خطأ، يركز على الوقاية", "أحياناً"], answer: 1},
+            {q: "ما هي الخطوة الأولى في عملية تطبيق نظام الهاسب؟", choices: ["إجراء تحليل المخاطر", "تشكيل فريق الهاسب", "تحديد نقاط التحكم الحرجة"], answer: 1},
+            {q: "ما هو الهدف الرئيسي من إنشاء نظام للتوثيق وحفظ السجلات في نظام الهاسب؟", choices: ["زيادة الأعباء الإدارية على العاملين", "إثبات تطبيق وصيانة نظام الهاسب", "تحسين العلاقات مع الموردين"], answer: 1},
+            {q: "يجب تخزين الغذاء المبرد في درجة حرارة 5°م أو أقل", choices: ["صح", "خطأ", "8°م أو أقل"], answer: 0},
+            {q: "يمكن إعادة تسخين الغذاء لدرجة حرارة 60°م فقط", choices: ["صح", "خطأ، يجب إعادة تسخينه لـ 82°م أو أعلى", "حسب نوع الغذاء"], answer: 1},
+            {q: "من الضروري فصل الأغذية النيئة عن الأغذية الجاهزة للأكل أثناء التحضير", choices: ["صح", "خطأ", "فقط مع اللحوم"], answer: 0},
+            {q: "ما هي درجة الحرارة الداخلية المناسبة لطهي الغذاء بشكل آمن؟", choices: ["50°م", "63°م", "75°م"], answer: 2},
+            {q: "كم من الوقت يجب أن يستغرق تبريد الغذاء الساخن؟", choices: ["خلال ساعة واحدة", "خلال ساعة ونصف", "خلال ساعتين"], answer: 1},
+            {q: "عند عرض الغذاء الساخن، ما هي درجة الحرارة المناسبة؟", choices: ["55°م أو أعلى", "60°م أو أعلى", "63°م أو أعلى"], answer: 2},
+            {q: "ما هي درجة حرارة نقل الغذاء المجمد؟", choices: ["-5°م أو أقل", "-18°م أو أقل", "-10°م أو أقل"], answer: 1},
+            {q: "ما هو مبدأ FIFO في إدارة المخزون؟", choices: ["الوارد أخيراً يصرف أولاً", "الوارد أولاً يصرف أولاً", "الأغلى ثمناً يصرف أولاً"], answer: 1},
+            {q: "ما هي درجة حرارة تخزين الغذاء الجاف المناسبة؟", choices: ["لا تزيد عن 25°م", "لا تزيد عن 35°م", "لا تزيد عن 15°م"], answer: 0},
+            {q: "عند استلام الأغذية يجب فحصها على الأرض مباشرة", choices: ["صح", "خطأ، يجب فحصها على طاولة نظيفة", "حسب نوع الغذاء"], answer: 1},
+            {q: "ما هو الغرض من التطهير؟", choices: ["إزالة بقايا الغذاء والأوساخ المرئية", "قتل البكتيريا والفيروسات بعد التنظيف", "تجفيف الأسطح بعد الغسيل"], answer: 1},
+            {q: "ما هي درجة حرارة الماء الساخن المستخدمة للتطهير؟", choices: ["50°م", "63°م", "82°م"], answer: 2},
+            {q: "أين توجد بكتيريا السالمونيلا عادة؟", choices: ["في الأرز المطبوخ", "داخل الدواجن واللحوم والبيض", "في منتجات الألبان فقط"], answer: 1},
+            {q: "بكتيريا باسيلس سيريوس توجد عادة في:", choices: ["اللحوم النيئة", "الأرز المطبوخ والسلطات", "منتجات الألبان"], answer: 1},
+            {q: "ما هي أعراض التسمم الغذائي الشائعة؟", choices: ["صداع وآلام في الظهر", "ألم في البطن، تقيؤ، غثيان، إسهال، حمى", "سعال وضيق في التنفس"], answer: 1},
+            {q: "متى تظهر أعراض التسمم الغذائي عادة؟", choices: ["فوراً بعد الأكل", "بين ساعتين و36 ساعة بعد تناول الغذاء الملوث", "بعد أسبوع على الأقل"], answer: 1},
+            {q: "ما الفرق بين التنظيف والتطهير؟", choices: ["لا يوجد فرق", "التنظيف يزيل الأوساخ المرئية والتطهير يقتل الميكروبات", "التطهير يأتي قبل التنظيف"], answer: 1},
+            {q: "يجب تغيير القفازات كل كم من الوقت؟", choices: ["كل ساعة", "كل نصف ساعة", "كل ساعتين"], answer: 1},
+            {q: "سلامة الغذاء مهمة فقط للمطاعم الكبيرة", choices: ["صح", "خطأ، مهمة لجميع منشآت الغذاء", "حسب عدد العملاء"], answer: 1},
+            {q: "ما هي الحساسية الغذائية؟", choices: ["تسمم غذائي بسبب البكتيريا", "رد فعل غير عادي من جهاز المناعة تجاه بعض أنواع الغذاء", "عدم الرغبة في تناول أطعمة معينة"], answer: 1},
+            {q: "النظافة الشخصية تبدأ:", choices: ["عند الوصول لمكان العمل", "قبل الوصول للعمل (من المنزل)", "عند بدء تحضير الغذاء"], answer: 1},
+            {q: "ما هو أول إجراء يجب القيام به قبل بدء العمل؟", choices: ["تشغيل المعدات", "خلع الساعة والحلي وغسل اليدين", "ارتداء القفازات مباشرة"], answer: 1},
+            {q: "يجب تخزين الأغذية على أرفف بارتفاع كم سم على الأقل عن الأرض؟", choices: ["5 سم", "15 سم", "30 سم"], answer: 1}
+        ];
+
+        // ============ Global Variables ============
+        let currentQuestionIndex = 0;
+        let quizQuestions = [];
+        let userAnswers = [];
+        let startTime = 0;
+        let timerInterval = null;
+        let userData = {
+            name: '',
+            residencyNumber: '',
+            restaurantName: ''
+        };
+
+        // ============ Utility Functions ============
+        function seededRandom(seed) {
+            const x = Math.sin(seed) * 10000;
+            return x - Math.floor(x);
+        }
+
+        function shuffleArray(array, seed) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(seededRandom(seed + i) * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function selectRandomQuestions(pool, count, seed) {
+            const shuffled = shuffleArray(pool, seed);
+            return shuffled.slice(0, count);
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        // ============ Registration ============
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            userData.name = document.getElementById('userName').value.trim();
+            userData.residencyNumber = document.getElementById('residencyNumber').value.trim();
+            userData.restaurantName = document.getElementById('restaurantName').value.trim();
+
+            if (!userData.name || !userData.residencyNumber || !userData.restaurantName) {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+                return;
+            }
+
+            // Initialize quiz
+            initializeQuiz();
+
+            // Hide registration, show quiz
+            document.getElementById('registrationSection').style.display = 'none';
+            document.getElementById('quizSection').classList.add('active');
+
+            renderQuestion();
+            startTimer();
+        });
+
+        function initializeQuiz() {
+            const seed = Date.now();
+            quizQuestions = selectRandomQuestions(allQuestions, 50, seed);
+            userAnswers = new Array(50).fill(null);
+            currentQuestionIndex = 0;
+            startTime = Date.now();
+        }
+
+        // ============ Quiz Logic ============
+        function renderQuestion() {
+            const question = quizQuestions[currentQuestionIndex];
+            const questionCard = document.getElementById('questionCard');
+
+            let choicesHTML = '';
+            question.choices.forEach((choice, index) => {
+                const choiceId = `choice-${index}`;
+                const isChecked = userAnswers[currentQuestionIndex] === index ? 'checked' : '';
+                const selectedClass = userAnswers[currentQuestionIndex] === index ? 'selected' : '';
+
+                choicesHTML += `
+                    <div class="choice ${selectedClass}">
+                        <input type="radio" id="${choiceId}" name="answer" value="${index}" ${isChecked}>
+                        <label for="${choiceId}">${getChoiceLabel(index)} - ${choice}</label>
+                    </div>
+                `;
+            });
+
+            questionCard.innerHTML = `
+                <div class="question-number">السؤال ${currentQuestionIndex + 1} من 50</div>
+                <div class="question-text">${question.q}</div>
+                <div class="choices">${choicesHTML}</div>
+            `;
+
+            // Add event listeners to radio buttons
+            document.querySelectorAll('input[name="answer"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    userAnswers[currentQuestionIndex] = parseInt(this.value);
+
+                    // Update selected state
+                    document.querySelectorAll('.choice').forEach(choice => {
+                        choice.classList.remove('selected');
+                    });
+                    this.parentElement.classList.add('selected');
+                });
+            });
+
+            updateProgress();
+            updateNavigationButtons();
+        }
+
+        function getChoiceLabel(index) {
+            return String.fromCharCode(65 + index); // A, B, C
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / 50) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('questionProgress').textContent = `السؤال ${currentQuestionIndex + 1} من 50`;
+        }
+
+        function updateNavigationButtons() {
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextBtn').disabled = currentQuestionIndex === 49;
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < 49) {
+                currentQuestionIndex++;
+                renderQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        function startTimer() {
+            startTime = Date.now();
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                document.getElementById('timer').textContent = formatTime(elapsed);
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        // ============ Quiz Submission ============
+        function submitQuiz() {
+            stopTimer();
+
+            // Calculate results
+            let correctCount = 0;
+            const wrongAnswers = [];
+
+            quizQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.answer) {
+                    correctCount++;
+                } else if (userAnswers[index] !== null) {
+                    wrongAnswers.push({
+                        index: index + 1,
+                        question: question.q,
+                        userAnswer: userAnswers[index] !== null ? question.choices[userAnswers[index]] : 'لم يتم الإجابة',
+                        correctAnswer: question.choices[question.answer],
+                        userAnswerIndex: userAnswers[index]
+                    });
+                }
+            });
+
+            displayResults(correctCount, wrongAnswers);
+        }
+
+        function displayResults(correctCount, wrongAnswers) {
+            const percentage = Math.round((correctCount / 50) * 100);
+            const scoreRotation = (percentage / 100) * 360;
+
+            document.getElementById('scoreNumber').textContent = percentage;
+            document.getElementById('scoreDetails').textContent = `${correctCount}/50`;
+            document.getElementById('scoreCircle').style.setProperty('--rotation', scoreRotation + 'deg');
+
+            // Score message
+            let message = '';
+            if (percentage >= 80) {
+                message = 'ممتاز! أنت لديك فهم عميق لسلامة الغذاء';
+            } else if (percentage >= 60) {
+                message = 'جيد! لديك معرفة جيدة بسلامة الغذاء';
+            } else if (percentage >= 40) {
+                message = 'مقبول. يرجى مراجعة المواد التثقيفية';
+            } else {
+                message = 'يرجى متابعة الدراسة والتدريب على سلامة الغذاء';
+            }
+            document.getElementById('scoreMessage').textContent = message;
+            document.getElementById('scorePercentageText').textContent = `النسبة المئوية: ${percentage}%`;
+
+            // Display wrong answers
+            let wrongAnswersHTML = '';
+            if (wrongAnswers.length === 0) {
+                wrongAnswersHTML = '<div class="wrong-answer-item no-wrong">لا توجد إجابات خاطئة! أنت تميز فوق العادة</div>';
+            } else {
+                wrongAnswers.forEach(wrong => {
+                    wrongAnswersHTML += `
+                        <div class="wrong-answer-item">
+                            <div class="question-num">السؤال ${wrong.index}: ${wrong.question}</div>
+                            <div class="your-answer">إجابتك: ${wrong.userAnswer}</div>
+                            <div class="correct-answer">✓ الإجابة الصحيحة: ${wrong.correctAnswer}</div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('wrongAnswersList').innerHTML = wrongAnswersHTML;
+
+            // Hide quiz, show results
+            document.getElementById('quizSection').classList.remove('active');
+            document.getElementById('resultsSection').classList.add('active');
+        }
+
+        // ============ Results Handling ============
+        function sendToGoogleSheets() {
+            const correctCount = parseInt(document.getElementById('scoreNumber').textContent) * 50 / 100;
+            const percentage = parseInt(document.getElementById('scoreNumber').textContent);
+
+            const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbxRDUifoBkjbTt-hLXyZydwtyh9qmuPSlX7mTVpCmO7SFBNwNALEYnLXRVIWm-uyAs/exec';
+
+            const data = {
+                name: userData.name,
+                residencyNumber: userData.residencyNumber,
+                restaurant: userData.restaurantName,
+                score: correctCount,
+                percentage: percentage,
+                totalQuestions: 50,
+                timestamp: new Date().toLocaleString('ar-SA')
+            };
+
+            fetch(googleScriptUrl, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                mode: 'no-cors'
+            }).then(() => {
+                const messagesContainer = document.getElementById('messagesContainer');
+                messagesContainer.innerHTML = '<div class="success-message">تم إرسال النتائج بنجاح إلى Google Sheets</div>';
+                setTimeout(() => {
+                    messagesContainer.innerHTML = '';
+                }, 3000);
+            }).catch(error => {
+                console.error('Error:', error);
+                const messagesContainer = document.getElementById('messagesContainer');
+                messagesContainer.innerHTML = '<div class="error-message">حدث خطأ أثناء إرسال البيانات. يرجى المحاولة لاحقاً</div>';
+                setTimeout(() => {
+                    messagesContainer.innerHTML = '';
+                }, 3000);
+            });
+        }
+
+        function resetQuiz() {
+            // Reset all variables
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            userData = { name: '', residencyNumber: '', restaurantName: '' };
+
+            // Clear form
+            document.getElementById('registrationForm').reset();
+
+            // Show registration, hide results
+            document.getElementById('registrationSection').style.display = 'block';
+            document.getElementById('resultsSection').classList.remove('active');
+            document.getElementById('messagesContainer').innerHTML = '';
+
+            stopTimer();
+        }
+    </script>
+</body>
+</html>
